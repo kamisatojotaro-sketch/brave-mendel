@@ -1,0 +1,49 @@
+================================================================================
+SYNAPSE // 1-PAGE PROJECT CONDENSED SUMMARY
+================================================================================
+
+1. WHAT IS SYNAPSE?
+An ADHD-optimized cognitive learning platform for Class 12 NEET UG & CBSE Board 
+exams (Physics, Chemistry, Biology) + a Universal Deep Diver for ANY topic.
+
+2. THE 5 NAVIGATION WINGS:
+• MAIN HUB: Command dashboard with radar reticle, stats, & "Today's Study Mission".
+• NCERT BOARD LAB: CBSE 12th board prep with 3 modes + handwritten photo grading.
+• NEET ARENA: NTA UG exam prep with 3 modes, +4/-1 scoring, & 45s countdown timer.
+• THE PREPPER: Automated 7/30-day interleaved study scheduler & date planner.
+• THE LEARNER: Universal research engine for ANY topic across reality.
+
+3. DUAL EDITIONS (In Board Lab & NEET Arena):
+• LIGHT LEARNER: "Dumb It Down" / ELI5 analogies, visual mental models, simple formulas.
+• DEEP LEARNER: Mastery mode with derivations, marking rubrics, PYQs, & traps.
+
+4. THE 3 OPERATION MODES:
+• MODE 1 - STUDY SESSION: 5 Depth Tiers + key points + mini active recall drill.
+• MODE 2 - SKIMMER: 2-minute rapid review cards with key equations & caveats.
+• MODE 3 - TEST PREPPER:
+  - Board Lab: Real CBSE questions + Handwritten Answer Photo Upload (AI evaluation).
+  - NEET Arena: Timed mock test (+4/-1) with auto mistake vault logging.
+
+5. VERIFIED COMPLETION PROGRESS RULE:
+Progress bars DO NOT update automatically while scrolling or opening topics.
+They ONLY update when the student clicks the verified "Mark as Completed" 
+button at the very end of each study session, skim, or test!
+
+6. UNIVERSAL LEARNER SPECIFICATIONS:
+Accepts literally any obsession (history, music, science, code, philosophy).
+Synthesizes 5 depth tiers + Resource Matrix:
+• Wikipedia links
+• Books & literature
+• Documentaries & videos
+• Related rabbit holes
+
+7. UI & UX AESTHETICS:
+• Dark tactical emerald & obsidian palette (#040806, #06120a, #10b981).
+• Editorial serif headings (Cinzel) + monospace telemetry data (JetBrains Mono).
+• Inspired by user's uploaded reference image & pvmun26.vercel.app.
+
+8. ADHD COGNITIVE ENGINE:
+• Web Audio API synthesizer for Brown Noise, Pink Noise, and Binaural Beats.
+• Bionic Reading toggle for eye-tracking focus.
+• Mistake Vault with psychological error diagnostics and spaced repetition.
+================================================================================

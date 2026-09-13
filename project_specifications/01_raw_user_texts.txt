@@ -1,0 +1,52 @@
+================================================================================
+SYNAPSE // RAW CHRONOLOGICAL USER PROMPTS & MESSAGES
+================================================================================
+Project: SYNAPSE Cognitive Learning Platform
+Author: S Jaasim Hasan
+Date: September 13, 2026
+
+--------------------------------------------------------------------------------
+[PROMPT 1]
+i want to create a website for deep learning a very specific topic
+
+--------------------------------------------------------------------------------
+[PROMPT 2]
+1. what is the pcb syllabus 
+2. do a deep dive online to find eerything to make this come true , use reddit , forums or whatever u need from real testimonies that lets people make them learn easier , learn what they are saying from real people , don't take anything from ai and also add a function that let's it dumb down things too and summarizers
+
+--------------------------------------------------------------------------------
+[PROMPT 3]
+make it for vercel and tell me hwo to implement it
+
+--------------------------------------------------------------------------------
+[PROMPT 4]
+how do me put it in github
+
+--------------------------------------------------------------------------------
+[PROMPT 5]
+alright it's uploaded now none of tyhem work , there isnt enough content in both the ncert and the neet arena and the learner is for me to learn about anything literally anything not physic sbiology or chemistry , and it doesnt work either fix all
+
+--------------------------------------------------------------------------------
+[PROMPT 6]
+see when i click ncert lab i want it to show , the dashu 2.0 and dashu 1.0 , i want dashu 1.0 to have be the easier version , the dumbing down version , i want it to have an array of subjects and when the subject is clicked it will show all of the chapters from the ncert and when a chapter is clicked i want it to show all of the sub topics , to study the sub topics seperately or study the entire chapter button then i want it to have a study session , skimmer and a test prepper , the study session is to just study the entire chapter , marking key points, important points , simplyfying complex topics , simplyfying formulas and such , visulaising things , and different for each subject , and after each sub topic is done i want it to have a small test , justs to revise , use psychology techniques and other testimones from real people on the internet that helps them study better , i wan these learning sessions to be split into 5 tiers and getting more indepth as it goes up and u can choose any ones . then the skimmer is just to when u want to skim the chapter/sub topics , without fully going into it . then the test prepper want to have olde ncert test papers and all of that aswell test chapters and subtopics , show the marks , how to improve , then for all of these 3 modes i want it to have a progress bar for each subject and subtopic and chapter then to confirm when it is done i want it to only show the "completed"button at the end and only when it is clicked it will consider in the progress bar
+
+--------------------------------------------------------------------------------
+[PROMPT 7]
+also i want an option where after finishing a chapter for the test preps and sessions to upload photos with the answers , if incase they were more than mcq to analyse the answers and give resultws , and rename dashu 2.0 and 1.0 to deep learner and light learner and also make a different section called prepper which lets u alter dates to add subjects and chapters to study that day , or make an generalised goal for a month , or a week and automatically filling  up the dates with the topics to study those days , and remind them in the main hub what topics to study that day that updates with the days and also i want a "main hub" that hosts the ncert , the neet and the learner ,the prepper
+
+--------------------------------------------------------------------------------
+[PROMPT 8]
+next the neet arena improve them liek the rest and also make them similair but in neet standards 
+
+--------------------------------------------------------------------------------
+[PROMPT 9]
+and for the learner i want it to be generalised topic of literally anything like i want it to have a very simple interface , i want to put in the text bar literally anything then i want it to analyse it then do a deep dive throughout the internet and tell me literally evertyhing about that subject into 5 tiers with increasing niche things and more indepth as it goes on , i want it to have realted links of articles to read , wikipedias  , related topics , books , videos , movies , to know literaelly everything about a topics as deep as possible , if u think uploading an ai into the website would make this easier then go ahead
+
+--------------------------------------------------------------------------------
+[PROMPT 10]
+now do a deep research on ui and ux designing to completely revamp the website to make it look smoother cleaner and with more personality , look through pinterest to make it more like the attached image for design , u can use "pvmun26.vercel.app" too for it and other clean websites
+
+--------------------------------------------------------------------------------
+[PROMPT 11]
+can u condense all of everything i said like all of my texts into one text folder
+================================================================================
