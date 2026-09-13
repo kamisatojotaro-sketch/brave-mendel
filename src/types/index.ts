@@ -104,6 +104,13 @@ export interface ConceptNode {
   connections: string[];
 }
 
+export interface ResourceMatrix {
+  books: { title: string; author: string; takeaway: string }[];
+  wikipedia: { title: string; url: string; snippet: string }[];
+  videos: { title: string; platform: string; url: string; desc: string }[];
+  relatedTopics: string[];
+}
+
 export interface LearnerTopic {
   id: string;
   title: string;
@@ -122,6 +129,7 @@ export interface LearnerTopic {
     };
   };
   conceptGraph: ConceptNode[];
+  resourceMatrix?: ResourceMatrix;
 }
 
 export interface ChapterSummary {
@@ -132,4 +140,45 @@ export interface ChapterSummary {
   ncertTraps: string[];
   mustKnowFormulas: { name: string; formula: string; note: string }[];
   mnemonics: { topic: string; trick: string; meaning: string }[];
+}
+
+// ================= THE PREPPER SCHEDULE TYPES =================
+export interface ScheduledTask {
+  id: string;
+  dateStr: string; // YYYY-MM-DD
+  subject: SubjectType;
+  chapterId: string;
+  chapterName: string;
+  subtopicName?: string;
+  targetMode: 'study' | 'skim' | 'test';
+  timeEstimateMins: number;
+  completed: boolean;
+}
+
+export interface PrepperGoal {
+  id: string;
+  title: string;
+  durationDays: number;
+  targetExam: 'neet' | 'board' | 'both';
+  startDate: string;
+  tasks: ScheduledTask[];
+}
+
+// ================= HANDWRITTEN ANSWER EVALUATION TYPES =================
+export interface AnswerEvaluationCriterion {
+  criterion: string;
+  marksAwarded: number;
+  maxMarks: number;
+  feedback: string;
+}
+
+export interface AnswerEvaluationResult {
+  totalMarksAwarded: number;
+  maxPossibleMarks: number;
+  percentage: number;
+  breakdown: AnswerEvaluationCriterion[];
+  overallSummary: string;
+  whatYouNailed: string[];
+  whereYouLostMarks: string[];
+  howToGetFullMarks: string[];
 }

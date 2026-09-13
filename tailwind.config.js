@@ -8,33 +8,46 @@ export default {
   theme: {
     extend: {
       colors: {
-        brand: {
-          50: '#eef2ff',
-          100: '#e0e7ff',
-          200: '#c7d2fe',
-          300: '#a5b4fc',
-          400: '#818cf8',
-          500: '#6366f1',
-          600: '#4f46e5',
-          700: '#4338ca',
-          800: '#3730a3',
-          900: '#312e81',
-          950: '#1e1b4b',
+        bg: {
+          dark: '#040806',
+          elevated: '#08120b',
+          card: '#0c1710',
+          glass: 'rgba(10, 20, 12, 0.65)',
         },
-        cortex: {
-          bg: '#090d16',
-          card: '#111726',
-          cardHover: '#182035',
-          border: '#1e293b',
-          accent: '#10b981',
-          cyan: '#06b6d4',
+        text: {
+          primary: '#f0ede6',
+          muted: 'rgba(240, 237, 230, 0.55)',
+          dim: 'rgba(240, 237, 230, 0.35)',
+        },
+        tactical: {
+          green: '#10b981',
+          mint: '#34d399',
+          gold: '#d4af37',
           amber: '#f59e0b',
-          rose: '#f43f5e'
+          red: '#c44536',
+          cyan: '#06b6d4',
+          border: 'rgba(16, 185, 129, 0.18)',
+          borderHover: 'rgba(16, 185, 129, 0.45)',
         }
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        serif: ['Cinzel', 'Playfair Display', 'Georgia', 'serif'],
+        sans: ['Tenor Sans', 'Inter', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+      },
+      animation: {
+        'radar-sweep': 'radarSweep 4s linear infinite',
+        'pulse-glow': 'pulseGlow 2.5s ease-in-out infinite',
+      },
+      keyframes: {
+        radarSweep: {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
+        },
+        pulseGlow: {
+          '0%, 100%': { opacity: 0.4, transform: 'scale(1)' },
+          '50%': { opacity: 0.85, transform: 'scale(1.02)' },
+        }
       }
     },
   },

@@ -144,3 +144,7 @@ class AmbientAudioEngine {
 }
 
 export const ambientAudio = new AmbientAudioEngine();
+
+export const playAmbientSound = (type: 'pink' | 'brown' | 'binaural-focus', volume?: number) => ambientAudio.play(type, volume);
+export const stopAmbientSound = () => ambientAudio.stop();
+export const isAudioPlaying = () => ambientAudio.isPlaying;

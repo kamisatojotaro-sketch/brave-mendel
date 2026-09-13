@@ -4,51 +4,114 @@
 
 @layer base {
   body {
-    @apply bg-[#070b12] text-slate-100 font-sans;
+    background-color: #040806;
+    color: #f0ede6;
+    font-family: 'Tenor Sans', 'Inter', sans-serif;
     overflow-x: hidden;
+  }
+
+  h1, h2, h3, .font-display {
+    font-family: 'Cinzel', 'Playfair Display', serif;
+    letter-spacing: 0.05em;
   }
 }
 
-/* Custom glowing borders & animations */
-.glass-panel {
-  background: rgba(15, 23, 42, 0.75);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+/* Subtle Film Grain Noise Texture */
+.noise-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  pointer-events: none !important;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.022;
 }
 
-.glass-panel-glow {
-  background: rgba(15, 23, 42, 0.85);
+/* Tactical military/academic glass cards with corner reticles */
+.tactical-card {
+  background: rgba(8, 18, 11, 0.7);
   backdrop-filter: blur(16px);
-  border: 1px solid rgba(99, 102, 241, 0.25);
-  box-shadow: 0 0 25px -5px rgba(99, 102, 241, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.16);
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
+.tactical-card:hover {
+  border-color: rgba(16, 185, 129, 0.35);
+  box-shadow: 0 10px 30px -10px rgba(16, 185, 129, 0.15);
+}
+
+/* Corner notches */
+.tactical-card::before, .tactical-card::after {
+  content: '';
+  position: absolute;
   width: 6px;
   height: 6px;
+  pointer-events: none;
+}
+.tactical-card::before {
+  top: -1px;
+  left: -1px;
+  border-top: 1.5px solid rgba(16, 185, 129, 0.6);
+  border-left: 1.5px solid rgba(16, 185, 129, 0.6);
+}
+.tactical-card::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 1.5px solid rgba(16, 185, 129, 0.6);
+  border-right: 1.5px solid rgba(16, 185, 129, 0.6);
+}
+
+/* Glowing chartreuse/emerald pill button from image */
+.btn-emerald-pill {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #040806;
+  font-weight: 700;
+  box-shadow: 0 0 20px -3px rgba(16, 185, 129, 0.5);
+  transition: all 0.25s ease;
+}
+.btn-emerald-pill:hover {
+  transform: translateY(-1.5px);
+  box-shadow: 0 0 28px 0px rgba(16, 185, 129, 0.7);
+  background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+}
+
+/* Telemetry micro-tag */
+.telemetry-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(52, 211, 153, 0.85);
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+}
+
+/* Custom scrollbar matching pvmun26 */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
 }
 ::-webkit-scrollbar-track {
-  background: #0b0f19;
+  background: #040806;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: linear-gradient(180deg, #10b981, #059669);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #fbbf24;
 }
 
-/* Bionic reading helper classes */
-.bionic-bold {
-  font-weight: 700;
-  color: #ffffff;
-}
-
-/* KaTeX custom sizing tweaks */
-.katex-display {
-  margin: 0.75em 0 !important;
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding: 0.5em 0;
+/* Radar scanline animation container */
+.radar-grid {
+  background-image: 
+    radial-gradient(circle, rgba(16, 185, 129, 0.15) 1px, transparent 1px),
+    linear-gradient(to right, rgba(16, 185, 129, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(16, 185, 129, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px, 40px 40px, 40px 40px;
 }
