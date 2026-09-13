@@ -1,6 +1,7 @@
 import { Derivation, BoardAnswerTemplate } from '../types';
 
 export const derivationsData: Derivation[] = [
+  // 1. LENS MAKER'S FORMULA
   {
     id: 'deriv-lens-maker',
     subject: 'physics',
@@ -49,85 +50,182 @@ export const derivationsData: Derivation[] = [
       }
     ]
   },
+
+  // 2. DRIFT VELOCITY & OHM'S LAW DEDUCTION
   {
-    id: 'deriv-wheatstone',
+    id: 'deriv-drift-velocity',
     subject: 'physics',
-    title: 'Condition for Balanced Wheatstone Bridge',
+    title: 'Drift Velocity & Deduction of Ohm\'s Law',
     chapter: 'Current Electricity',
     marksTypical: 3,
     cbseFrequency: 'Very High',
-    aim: 'Using Kirchhoff\'s laws, deduce the condition for balance of a Wheatstone bridge: P / Q = R / S when galvanometer current Ig = 0.',
-    eli5Summary: 'Think of four resistors like two parallel branches of water pipes. If the water pressure in the middle of both pipes is exactly equal, no water will flow between them through a connecting valve (galvanometer Ig = 0). The ratio of the resistances must be equal!',
-    finalFormula: '\\frac{P}{Q} = \\frac{R}{S}',
+    aim: 'Derive expression for drift velocity vd = -e E tau / m and deduce Ohm\'s law (V = I R) from microscopic electronic parameters.',
+    eli5Summary: 'Electrons in a wire are like bumper cars bouncing violently in random directions at millions of miles an hour. When you flip on a battery voltage, an electric field gives them a tiny, sluggish push in one direction (the drift speed is slower than an ant crawling!). Adding up all those sluggish ants gives electric current!',
+    finalFormula: 'I = n e A v_d \\implies R = \\frac{m L}{n e^2 \\tau A}',
     steps: [
       {
         stepNumber: 1,
-        instruction: 'Draw the 4-arm bridge ABCD with resistances P, Q, R, S and galvanometer G in arm BD. State Kirchhoff\'s Junction Law at B and D when bridge is balanced (I_g = 0).',
-        math: 'I_1 = I_2 \\quad \\text{along branch ABC}; \\quad I_3 = I_4 \\quad \\text{along branch ADC}',
-        cbseMarkAllocation: '1 Mark (Circuit diagram with current labeling)',
-        proTip: 'Do not forget battery E and key K in the circuit diagram.'
+        instruction: 'State the acceleration experienced by a free conduction electron of mass m and charge -e in an applied electric field E.',
+        math: '\\vec{a} = -\\frac{e \\vec{E}}{m}',
+        cbseMarkAllocation: '0.5 Mark',
+        proTip: 'Mention negative sign shows acceleration is opposite to electric field direction.'
       },
       {
         stepNumber: 2,
-        instruction: 'Apply Kirchhoff\'s Loop Rule to closed loop ABDA in clockwise direction.',
-        math: '-I_1 P - I_g G + I_3 R = 0 \\implies -I_1 P + I_3 R = 0 \\implies I_1 P = I_3 R \\quad \\text{--- (Eq 1)}',
-        cbseMarkAllocation: '1 Mark (Sign convention application)',
-        proTip: 'State the loop direction (e.g. ABDA) explicitly.'
+        instruction: 'Define relaxation time tau as the average time between two successive collisions, deriving average drift velocity.',
+        math: '\\vec{v}_d = \\vec{u}_{\\text{avg}} + \\vec{a} \\tau = 0 + \\left( -\\frac{e \\vec{E}}{m} \\right) \\tau \\implies v_d = \\frac{e E \\tau}{m}',
+        cbseMarkAllocation: '1 Mark (Thermal velocity u_avg = 0 condition)',
+        proTip: 'Emphasize that average thermal velocity in absence of E is strictly zero.'
       },
       {
         stepNumber: 3,
-        instruction: 'Apply Kirchhoff\'s Loop Rule to closed loop BCDB in clockwise direction.',
-        math: '-I_1 Q + I_3 S + I_g G = 0 \\implies -I_1 Q + I_3 S = 0 \\implies I_1 Q = I_3 S \\quad \\text{--- (Eq 2)}',
+        instruction: 'Relate current I to drift velocity vd in a conductor of length L, cross-sectional area A, and electron density n.',
+        math: 'q = (n \\cdot A \\cdot L) e \\implies I = \\frac{q}{t} = \\frac{n A L e}{L / v_d} = n e A v_d',
         cbseMarkAllocation: '0.5 Mark',
-        proTip: 'Since Ig = 0, current in BC is I1 and current in DC is I3.'
+        proTip: 'L / vd represents the transit time for charge to cross conductor length.'
       },
       {
         stepNumber: 4,
-        instruction: 'Divide Equation (1) by Equation (2) to eliminate currents I1 and I3.',
-        math: '\\frac{I_1 P}{I_1 Q} = \\frac{I_3 R}{I_3 S} \\implies \\frac{P}{Q} = \\frac{R}{S}',
-        cbseMarkAllocation: '0.5 Mark (Final ratio statement)',
-        proTip: 'Mention: "This balanced state is independent of the EMF of the cell and galvanometer resistance."'
+        instruction: 'Substitute electric field E = V / L into the current expression to deduce Ohm\'s Law.',
+        math: 'I = n e A \\left( \\frac{e \\left(\\frac{V}{L}\\right) \\tau}{m} \\right) = \\left( \\frac{n e^2 \\tau A}{m L} \\right) V \\implies V = \\left( \\frac{m L}{n e^2 \\tau A} \\right) I = I R',
+        cbseMarkAllocation: '1 Mark (Explicitly identifying R = mL / (n e^2 tau A))',
+        proTip: 'State: At constant temperature, n and tau are constant, so R is constant. Thus V is proportional to I.'
       }
     ]
   },
+
+  // 3. ELECTRIC FIELD OF DIPOLE (AXIAL LINE)
   {
-    id: 'deriv-nernst',
-    subject: 'chemistry',
-    title: 'Derivation of Nernst Equation from Thermodynamic Principles',
-    chapter: 'Electrochemistry',
+    id: 'deriv-dipole-axial',
+    subject: 'physics',
+    title: 'Electric Field of Dipole on Axial Line',
+    chapter: 'Electrostatics',
     marksTypical: 3,
     cbseFrequency: 'High',
-    aim: 'Relate electrical potential E_cell to Gibbs Free Energy change and reaction quotient Q.',
-    eli5Summary: 'Voltage is the electrical pressure created by a chemical reaction wanting to happen. As products pile up, the driving force drops. The Nernst equation calculates the exact voltage drop based on temperature and concentration.',
-    finalFormula: 'E_{\\text{cell}} = E^\\circ_{\\text{cell}} - \\frac{2.303 RT}{nF} \\log_{10} Q',
+    aim: 'Derive the electric field of an electric dipole of dipole moment p = q(2a) at a distance r along its axial line.',
+    eli5Summary: 'A dipole is two equal and opposite charges (+q and -q) glued together. If you stand in a straight line with them (axial line), one charge is slightly closer to you than the other. The closer charge wins the tug-of-war!',
+    finalFormula: 'E_{\\text{axial}} = \\frac{1}{4\\pi\\varepsilon_0} \\frac{2p}{r^3} \\quad (\\text{for } r \\gg a)',
     steps: [
       {
         stepNumber: 1,
-        instruction: 'Write the fundamental thermodynamic Van\'t Hoff isotherm equation relating Gibbs free energy change Delta G to standard free energy Delta G0.',
-        math: '\\Delta G = \\Delta G^\\circ + RT \\ln Q',
-        cbseMarkAllocation: '1 Mark',
-        proTip: 'State clearly that Q is the reaction quotient [Products]/[Reactants].'
+        instruction: 'Draw electric dipole of charges -q at A and +q at B separated by 2a. Let P be a point at distance r from dipole center O along the axis.',
+        math: 'AP = r + a, \\quad BP = r - a',
+        cbseMarkAllocation: '0.5 Mark (Diagram + distance definitions)',
+        proTip: 'Always mark dipole moment vector p pointing from -q to +q.'
       },
       {
         stepNumber: 2,
-        instruction: 'Substitute electrical work done: Delta G = -nFE_cell and Delta G0 = -nFE0_cell into the isotherm equation.',
-        math: '-nFE_{\\text{cell}} = -nFE^\\circ_{\\text{cell}} + RT \\ln Q',
+        instruction: 'Write expressions for electric field vectors E_+q (directed away) and E_-q (directed towards dipole).',
+        math: 'E_{+q} = \\frac{1}{4\\pi\\varepsilon_0} \\frac{q}{(r - a)^2}, \\quad E_{-q} = \\frac{1}{4\\pi\\varepsilon_0} \\frac{q}{(r + a)^2}',
         cbseMarkAllocation: '1 Mark',
-        proTip: 'State n = number of moles of electrons transferred, F = Faraday constant (96,500 C/mol).'
+        proTip: 'Since BP < AP, E_+q > E_-q. Net field points along vector p.'
       },
       {
         stepNumber: 3,
-        instruction: 'Divide the entire equation by -nF and convert natural logarithm (ln) to log base 10.',
-        math: 'E_{\\text{cell}} = E^\\circ_{\\text{cell}} - \\frac{RT}{nF} \\ln Q = E^\\circ_{\\text{cell}} - \\frac{2.303 RT}{nF} \\log_{10} Q',
-        cbseMarkAllocation: '0.5 Mark',
-        proTip: 'At T = 298 K, 2.303 * R * T / F = 0.0591 V.'
+        instruction: 'Compute net electric field E = E_+q - E_-q and simplify algebraically.',
+        math: 'E = \\frac{q}{4\\pi\\varepsilon_0} \\left[ \\frac{1}{(r-a)^2} - \\frac{1}{(r+a)^2} \\right] = \\frac{q}{4\\pi\\varepsilon_0} \\left[ \\frac{(r+a)^2 - (r-a)^2}{(r^2 - a^2)^2} \\right] = \\frac{q}{4\\pi\\varepsilon_0} \\frac{4ar}{(r^2 - a^2)^2}',
+        cbseMarkAllocation: '1 Mark',
+        proTip: 'Factor 4ar into 2 * (2a) * r to introduce dipole moment p = q * 2a.'
       },
       {
         stepNumber: 4,
-        instruction: 'Write the operational formula at standard temperature 298 K.',
-        math: 'E_{\\text{cell}} = E^\\circ_{\\text{cell}} - \\frac{0.0591}{n} \\log_{10} Q',
+        instruction: 'Substitute p = 2qa and apply short-dipole approximation (r >> a).',
+        math: 'E = \\frac{1}{4\\pi\\varepsilon_0} \\frac{2pr}{(r^2 - a^2)^2} \\xrightarrow{r \\gg a} E_{\\text{axial}} = \\frac{1}{4\\pi\\varepsilon_0} \\frac{2p}{r^3}',
+        cbseMarkAllocation: '0.5 Mark (Final vector statement: along direction of p)',
+        proTip: 'State: Electric field of a dipole falls off as 1/r^3, faster than a single charge (1/r^2).'
+      }
+    ]
+  },
+
+  // 4. YOUNG'S DOUBLE SLIT EXPERIMENT (FRINGE WIDTH)
+  {
+    id: 'deriv-ydse-fringe',
+    subject: 'physics',
+    title: 'Expression for Fringe Width in Young\'s Double Slit Experiment',
+    chapter: 'Wave Optics',
+    marksTypical: 5,
+    cbseFrequency: 'Very High',
+    aim: 'Derive path difference Delta x = y*d / D and deduce fringe width beta = lambda * D / d for interference fringes.',
+    eli5Summary: 'When wave ripples from two tiny slits overlap, their peaks collide to create dazzling bright stripes, and peaks colliding with troughs cancel out into dark stripes. Geometry lets us calculate the exact millimeter distance between every bright stripe on the screen!',
+    finalFormula: '\\beta = \\frac{\\lambda D}{d}',
+    steps: [
+      {
+        stepNumber: 1,
+        instruction: 'Set up two coherent narrow slits S1 and S2 separated by distance d, with screen placed parallel at distance D. Let P be a point on screen at distance y from central maximum O.',
+        math: 'S_1 = (0, d/2), \\quad S_2 = (0, -d/2), \\quad P = (D, y)',
+        cbseMarkAllocation: '1 Mark (Ray diagram showing path difference S2P - S1P)',
+        proTip: 'Make sure slit separation d is drawn much smaller than screen distance D.'
+      },
+      {
+        stepNumber: 2,
+        instruction: 'Calculate path lengths S1P and S2P using Pythagoras theorem in right-angled triangles.',
+        math: 'S_2 P^2 - S_1 P^2 = \\left[ D^2 + \\left(y + \\frac{d}{2}\\right)^2 \\right] - \\left[ D^2 + \\left(y - \\frac{d}{2}\\right)^2 \\right] = 2yd',
+        cbseMarkAllocation: '1.5 Marks (Algebraic expansion and cancellation of D^2 terms)',
+        proTip: 'Factor as (S2P - S1P)(S2P + S1P) = 2yd.'
+      },
+      {
+        stepNumber: 3,
+        instruction: 'Since D >> d and y << D, approximate S2P + S1P ≈ 2D to find path difference Delta x.',
+        math: '(S_2 P - S_1 P)(2D) \\approx 2yd \\implies \\Delta x = S_2 P - S_1 P = \\frac{yd}{D}',
+        cbseMarkAllocation: '1 Mark',
+        proTip: 'Highlight the approximation S2P + S1P ≈ 2D explicitly.'
+      },
+      {
+        stepNumber: 4,
+        instruction: 'For constructive interference (bright fringes), set Delta x = n * lambda. Find position of n-th bright fringe.',
+        math: '\\frac{y_n d}{D} = n \\lambda \\implies y_n = \\frac{n \\lambda D}{d} \\quad (n = 0, 1, 2, \\dots)',
         cbseMarkAllocation: '0.5 Mark',
-        proTip: 'Mention that pure solids and liquids have activity = 1.'
+        proTip: 'Central bright fringe is at y_0 = 0.'
+      },
+      {
+        stepNumber: 5,
+        instruction: 'Compute fringe width beta as distance between two successive bright fringes (y_{n} - y_{n-1}).',
+        math: '\\beta = y_n - y_{n-1} = \\frac{n \\lambda D}{d} - \\frac{(n-1) \\lambda D}{d} = \\frac{\\lambda D}{d}',
+        cbseMarkAllocation: '1 Mark (Final formula box + statement: all fringes have equal width)',
+        proTip: 'State: Fringe width beta is independent of n; interference fringes are equally spaced!'
+      }
+    ]
+  },
+
+  // 5. FIRST-ORDER REACTION INTEGRATED RATE LAW
+  {
+    id: 'deriv-first-order-kinetics',
+    subject: 'chemistry',
+    title: 'Integrated Rate Equation for First Order Chemical Kinetics',
+    chapter: 'Chemical Kinetics',
+    marksTypical: 3,
+    cbseFrequency: 'Very High',
+    aim: 'Derive k = (2.303/t) * log10([R]0 / [R]) and half-life t_1/2 = 0.693 / k for a first-order reaction.',
+    eli5Summary: 'Imagine a popcorn popper where every single kernel has a fixed 10% chance of popping each minute. The more unpopped kernels remain, the faster popping noises you hear. As kernels pop, the rate slows down smoothly in an exponential curve!',
+    finalFormula: 'k = \\frac{2.303}{t} \\log_{10} \\left( \\frac{[R]_0}{[R]} \\right) \\quad \\text{and} \\quad t_{1/2} = \\frac{0.693}{k}',
+    steps: [
+      {
+        stepNumber: 1,
+        instruction: 'Write the differential rate law for a first-order reaction R -> P.',
+        math: '-\\frac{d[R]}{dt} = k [R]^1 \\implies \\frac{d[R]}{[R]} = -k dt',
+        cbseMarkAllocation: '0.5 Mark',
+        proTip: 'Separate variables [R] on LHS and time t on RHS.'
+      },
+      {
+        stepNumber: 2,
+        instruction: 'Integrate both sides between initial time t = 0 (where [R] = [R]0) and time t (where [R] = [R]).',
+        math: '\\int_{[R]_0}^{[R]} \\frac{d[R]}{[R]} = -k \\int_0^t dt \\implies \\ln [R] - \\ln [R]_0 = -k t \\implies \\ln \\left( \\frac{[R]}{[R]_0} \\right) = -k t',
+        cbseMarkAllocation: '1 Mark',
+        proTip: 'Recall integral of 1/x dx is natural log ln(x).'
+      },
+      {
+        stepNumber: 3,
+        instruction: 'Rearrange and convert natural logarithm (ln) to base 10 logarithm by multiplying by 2.303.',
+        math: 'k t = \\ln \\left( \\frac{[R]_0}{[R]} \\right) \\implies k = \\frac{2.303}{t} \\log_{10} \\left( \\frac{[R]_0}{[R]} \\right)',
+        cbseMarkAllocation: '1 Mark',
+        proTip: 'Box this equation as the primary integrated rate expression.'
+      },
+      {
+        stepNumber: 4,
+        instruction: 'Derive half-life t1/2 when concentration drops to [R] = [R]0 / 2.',
+        math: 't_{1/2} = \\frac{2.303}{k} \\log_{10} \\left( \\frac{[R]_0}{[R]_0 / 2} \\right) = \\frac{2.303}{k} \\log_{10}(2) = \\frac{2.303 \\times 0.3010}{k} = \\frac{0.693}{k}',
+        cbseMarkAllocation: '0.5 Mark',
+        proTip: 'Crucial conclusion: Half-life of a first-order reaction is completely independent of initial reactant concentration!'
       }
     ]
   }
@@ -188,5 +286,30 @@ export const boardAnswersData: BoardAnswerTemplate[] = [
 • Hence, the angle of incidence equals the angle of reflection. Since incident ray, normal, and reflected ray all lie in the plane of the paper, the laws of reflection are proved.`,
     eli5Explanation: 'Imagine a row of soldiers marching in a straight line hitting a tilted wall. The first soldier to hit immediately bounces off at an angle. By the time the last soldier hits the wall, the first soldier has marched the exact same distance into the room. Matching the geometry proves the bounce angle must match the entry angle!',
     keyDefinitionsToUnderline: ['secondary wavelets', 'forward common envelope', 'v * tau', 'RHS congruence', 'angle of incidence equals angle of reflection']
+  },
+  {
+    id: 'ans-3',
+    subject: 'chemistry',
+    chapter: 'Coordination Compounds',
+    marks: 2,
+    question: 'Write the IUPAC name of [Pt(NH3)2 Cl(NO2)] and draw its geometrical isomers. Indicate which isomer shows optical activity.',
+    markingSchemePoints: [
+      'Correct IUPAC name: Diamminechloridonitrito-N-platinum(II) (1 Mark)',
+      'Drawing of cis and trans isomers (1/2 Mark)',
+      'Optical activity statement: Square planar complexes possess plane of symmetry, hence neither cis nor trans is optically active (1/2 Mark)'
+    ],
+    modelAnswer: `**1. IUPAC Name:**
+**Diamminechloridonitrito-N-platinum(II)** (or Diamminechloridonitroplatinum(II))
+*(Oxidation state calculation: $x + 2(0) - 1 - 1 = 0 \\implies x = +2$)*
+
+**2. Geometrical Isomers:**
+• **cis-isomer**: Both $NH_3$ ligands occupy adjacent positions (at $90^\\circ$ to each other).
+• **trans-isomer**: Both $NH_3$ ligands occupy opposite positions (at $180^\\circ$ across from each other).
+
+**3. Optical Activity:**
+• **Neither isomer is optically active.**
+• Platinum(II) complexes are four-coordinate **square planar ($dsp^2$)**. Square planar complexes possess a plane of symmetry (the molecular plane itself), making them superimposable on their mirror images and achiral.`,
+    eli5Explanation: 'Think of a square table: having two identical cups side-by-side is cis; having them on opposite diagonal corners is trans. Because a flat table can always be sliced in half like a sheet of paper, it is completely symmetrical and cannot be optically active!',
+    keyDefinitionsToUnderline: ['Diamminechloridonitrito-N-platinum(II)', 'cis (adjacent 90°)', 'trans (opposite 180°)', 'square planar dsp2', 'plane of symmetry']
   }
 ];

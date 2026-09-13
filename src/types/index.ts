@@ -107,7 +107,7 @@ export interface ConceptNode {
 export interface LearnerTopic {
   id: string;
   title: string;
-  domain: 'Deep Learning & AI' | 'Theoretical Physics' | 'Quantum Biology' | 'Neuroscience';
+  domain: string;
   tags: string[];
   depthContent: {
     [key in LearnerDepth]: {
