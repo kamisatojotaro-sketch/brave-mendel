@@ -5,6 +5,8 @@ import {
   BloodyClothProp,
   HuntingKnifeProp,
   BleachBottleProp,
+  RubberGlovesProp,
+  CrimsonSunglassesProp,
   PaintSplatterBadge,
   BotanicalLagoonFooter,
 } from './BotanicalCrimeArt';
@@ -30,13 +32,13 @@ const LINEUP_SUBTITLES: Record<string, string> = {
   femi: 'Poet // Victim #03',
 };
 
-// Story-authentic handwritten notes from Korede's perspective
+// Story-authentic confession notes from Korede's perspective
 const KOREDE_HANDWRITTEN_NOTES: Record<string, string> = {
-  korede: '"I know the exact ratio of lemon to bleach for bathroom tiles..."',
-  ayoola: '"She posted a Snapchat right after Femi stopped breathing."',
-  tade: '"Why does he look at her like that when I’m standing right here?"',
-  femi: '"Wrapped like a mummy and dropped off the Third Mainland Bridge."',
-  mother: '"As long as a rich suitor calls, she never asks where the last one went."',
+  korede: '“I know the exact ratio of lemon to bleach for bathroom tiles...”',
+  ayoola: '“She posted a Snapchat right after Femi stopped breathing.”',
+  tade: '“Why does he look at her like that when I’m standing right here?”',
+  femi: '“Wrapped like a mummy and dropped off the Third Mainland Bridge.”',
+  mother: '“As long as a rich suitor calls, she never asks where the last one went.”',
 };
 
 // Display order for the Full-Screen Lineup Stage (Ayoola, Korede, Tade, Mother, Femi)
@@ -104,6 +106,21 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
     touchEndX.current = null;
   };
 
+  const getCharacterPropIcon = (id: string) => {
+    switch (id) {
+      case 'korede':
+        return <BleachBottleProp className="w-14 h-14 shrink-0" />;
+      case 'ayoola':
+        return <HuntingKnifeProp className="w-14 h-14 shrink-0" />;
+      case 'tade':
+        return <RubberGlovesProp className="w-14 h-14 shrink-0" />;
+      case 'mother':
+        return <CrimsonSunglassesProp className="w-20 h-10 shrink-0" />;
+      default:
+        return <BloodyClothProp className="w-14 h-14 shrink-0" />;
+    }
+  };
+
   const activeCharacter = selectedIndex !== null ? CHARACTER_SLOTS[selectedIndex] : null;
 
   return (
@@ -115,14 +132,14 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
     >
       {/* Floating Decorative Murder Props in Background Corners */}
       <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-        <div className="hidden xl:block absolute left-8 bottom-24 opacity-70 animate-float-slow">
-          <BloodyClothProp className="w-24 h-24" />
+        <div className="hidden md:block absolute left-6 bottom-24 opacity-75 animate-float-slow">
+          <BloodyClothProp className="w-20 h-20 lg:w-24 lg:h-24" />
         </div>
         <div
           style={{ animationDelay: '1.5s' }}
-          className="hidden xl:block absolute right-10 bottom-28 opacity-75 animate-float-slow"
+          className="hidden md:block absolute right-8 bottom-28 opacity-80 animate-float-slow"
         >
-          <HuntingKnifeProp className="w-24 h-24" />
+          <HuntingKnifeProp className="w-20 h-20 lg:w-24 lg:h-24" />
         </div>
       </div>
 
@@ -167,7 +184,7 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
       {/* =====================================================================
           STATE 1: FULL-SCREEN 5-CHARACTER LINEUP STAGE
           - No "CLICK TO ZOOM IN" text anywhere
-          - Subtle, refined hover outline (`border-[#f3efe4]/40` + gentle lift)
+          - Subtle, refined hover outline (`border-[#f3efe4]/45` + gentle lift)
           - Ayoola's white border artifact completely cropped & vignette-masked
          ===================================================================== */}
       {selectedIndex === null && (
@@ -190,39 +207,39 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
                   onClick={() => handleSelectCharacter(slotIdx)}
                   className={`group relative cursor-pointer h-[68vh] min-h-[420px] sm:h-[75vh] flex flex-col justify-end items-center transition-all duration-500 ease-out rounded-2xl ${
                     isHovered
-                      ? '-translate-y-3 scale-[1.03] z-30 character-subtle-outline'
+                      ? '-translate-y-2.5 scale-[1.02] z-30 character-subtle-outline'
                       : isSomeoneElseHovered
                       ? 'opacity-65 scale-[0.985] z-10'
                       : 'z-10'
                   }`}
                 >
-                  {/* Character Card with Subtle Outline on Hover & Edge Masking */}
+                  {/* Character Card with Subtle Outline on Hover & All-Edge Dark Masking */}
                   <div
                     className={`relative w-full h-full rounded-2xl overflow-hidden transition-all duration-500 bg-[#040705] ${
                       isHovered
-                        ? 'border border-[#f3efe4]/55'
-                        : 'border border-[#258e47]/35'
+                        ? 'border border-[#f3efe4]/45'
+                        : 'border border-[#258e47]/30'
                     }`}
                   >
-                    {/* Portrait Image: Ayoola gets extra inset scale (scale-[1.12]) + dark inner vignette so any white edge on her source JPG is 100% clipped out */}
+                    {/* Portrait Image: Ayoola uses centered crop + 1.15x scale + inset ring so zero white border on her source JPG can ever appear */}
                     <img
                       src={CHARACTER_IMAGES[char.id]}
                       alt={char.name}
-                      className={`w-full h-full object-cover object-top transition-transform duration-700 select-none pointer-events-none ${
+                      className={`w-full h-full object-cover transition-transform duration-700 select-none pointer-events-none ${
                         isAyoola
                           ? isHovered
-                            ? 'scale-[1.16] brightness-105'
-                            : 'scale-[1.12] brightness-95'
+                            ? 'object-center scale-[1.18] brightness-105'
+                            : 'object-center scale-[1.14] brightness-95'
                           : isHovered
-                          ? 'scale-[1.06] brightness-105'
-                          : 'scale-[1.02] brightness-95'
+                          ? 'object-top scale-[1.06] brightness-105'
+                          : 'object-top scale-[1.03] brightness-95'
                       }`}
                     />
 
-                    {/* Inner Edge Vignette Mask (prevents any light edge bleeding on cards) */}
-                    <div className="pointer-events-none absolute inset-0 shadow-[inset_0_0_24px_12px_#040705]" />
+                    {/* All-Sides Dark Frame + Vignette Mask (eliminates any source JPG edge bleed) */}
+                    <div className="pointer-events-none absolute inset-0 ring-4 ring-inset ring-[#040705] shadow-[inset_0_0_28px_14px_#040705]" />
 
-                    {/* Bottom DarkEmerald & Noir Gradient for Name Readability */}
+                    {/* Bottom Dark Emerald & Noir Gradient for Name Readability */}
                     <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#040705] via-[#041d0e]/80 to-transparent pointer-events-none" />
 
                     {/* Stylized Slanted Character Name & Subtitle */}
@@ -290,7 +307,7 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
 
           {/* 3-Column GTA + Book-Cover Pop-Art Character Stage */}
           <div className="my-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            {/* LEFT SIDE POP-UP: Splattered Name, Role Title, Handwritten Korede Note & Prop (4 cols) */}
+            {/* LEFT SIDE POP-UP: Splattered Name, Role Title, Korede Confession & Prop (4 cols) */}
             <div className="lg:col-span-4 text-left space-y-4 z-20 animate-[fadeSlideRight_0.45s_ease-out] relative">
               <PaintSplatterBadge
                 color="#ff007f"
@@ -311,7 +328,7 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
               </div>
 
               {/* Korede's Room 313 Editorial Note */}
-              <div className="p-3.5 rounded-xl bg-[#041d0e]/90 border-l-4 border-[#ff007f] shadow-md">
+              <div className="p-3.5 rounded-xl glass-dropdown-bar border-l-4 border-l-[#ff007f] shadow-md">
                 <span className="block font-geometric text-[9px] uppercase tracking-[0.24em] text-[#ff007f] font-bold mb-1">
                   KOREDE’S CONFESSION // ROOM 313
                 </span>
@@ -321,12 +338,8 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
               </div>
 
               {/* Signature Evidence Prop */}
-              <div className="pt-1 flex items-center gap-3 font-mono text-xs text-[#f3efe4]/85">
-                {activeCharacter.id === 'korede' && <BleachBottleProp className="w-12 h-12 shrink-0" />}
-                {activeCharacter.id === 'ayoola' && <HuntingKnifeProp className="w-12 h-12 shrink-0" />}
-                {activeCharacter.id !== 'korede' && activeCharacter.id !== 'ayoola' && (
-                  <BloodyClothProp className="w-12 h-12 shrink-0" />
-                )}
+              <div className="pt-1 flex items-center gap-3 font-mono text-xs text-[#f3efe4]/90">
+                {getCharacterPropIcon(activeCharacter.id)}
                 <div>
                   <span className="block text-[10px] text-[#00ff33] uppercase">SIGNATURE EVIDENCE:</span>
                   <span className="font-semibold">{activeCharacter.signatureItem}</span>
@@ -336,16 +349,16 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
 
             {/* CENTER ZOOMED CHARACTER PORTRAIT (4 cols) */}
             <div className="lg:col-span-4 flex items-center justify-center relative z-10">
-              <div className="relative w-72 sm:w-80 md:w-[340px] h-[54vh] sm:h-[62vh] rounded-2xl overflow-hidden border border-[#f3efe4]/45 character-subtle-outline bg-[#040705] transition-all duration-500">
+              <div className="relative w-72 sm:w-80 md:w-[340px] h-[54vh] sm:h-[62vh] rounded-2xl overflow-hidden border border-[#f3efe4]/40 character-subtle-outline bg-[#040705] transition-all duration-500">
                 <img
                   src={CHARACTER_IMAGES[activeCharacter.id]}
                   alt={activeCharacter.name}
-                  className={`w-full h-full object-cover object-top transition-transform duration-700 select-none pointer-events-none ${
-                    activeCharacter.id === 'ayoola' ? 'scale-[1.12]' : 'scale-105'
+                  className={`w-full h-full object-cover transition-transform duration-700 select-none pointer-events-none ${
+                    activeCharacter.id === 'ayoola' ? 'object-center scale-[1.15]' : 'object-top scale-105'
                   }`}
                 />
-                {/* Inner Vignette to keep edges clean */}
-                <div className="pointer-events-none absolute inset-0 shadow-[inset_0_0_26px_12px_#040705]" />
+                {/* Inner Dark Ring & Vignette to keep all 4 edges 100% clean */}
+                <div className="pointer-events-none absolute inset-0 ring-4 ring-inset ring-[#040705] shadow-[inset_0_0_28px_14px_#040705]" />
                 <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#040705] to-transparent pointer-events-none" />
               </div>
             </div>
@@ -385,8 +398,8 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
                 })}
               </div>
 
-              {/* Botanical Forest & Hot-Pink Bio Card (`<main character intros>`) */}
-              <div className="rounded-2xl bg-[#041d0e]/95 backdrop-blur-md border-2 border-[#f3efe4]/30 p-5 sm:p-6 shadow-[0_14px_32px_rgba(0,0,0,0.85)] space-y-3 relative overflow-hidden">
+              {/* Translucent Frosted Lagoon Bio Card (`<main character intros>`) */}
+              <div className="rounded-2xl glass-dropdown-bar p-5 sm:p-6 space-y-3 relative overflow-hidden">
                 <div className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#ff007f] via-[#00ff33] to-[#ff007f]" />
                 <div className="flex items-center justify-between font-mono text-[10px] text-[#00ff33] border-b border-[#f3efe4]/15 pb-2">
                   <span className="flex items-center gap-1.5">
@@ -418,20 +431,21 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
                   <button
                     key={item.id}
                     onClick={() => handleSelectCharacter(idx)}
-                    className={`relative w-14 h-14 sm:w-16 sm:h-16 rounded-lg overflow-hidden border transition-all shrink-0 ${
+                    className={`relative w-14 h-14 sm:w-16 sm:h-16 rounded-lg overflow-hidden border transition-all shrink-0 bg-[#040705] ${
                       active
                         ? 'border-[#ff007f] scale-110 magenta-glow'
-                        : 'border-[#f3efe4]/25 opacity-65 hover:opacity-100 hover:border-[#f3efe4]/60'
+                        : 'border-[#f3efe4]/25 opacity-65 hover:opacity-100 hover:border-[#f3efe4]/55'
                     }`}
                   >
                     <img
                       src={CHARACTER_IMAGES[item.id]}
                       alt={item.name}
-                      className={`w-full h-full object-cover object-top ${
-                        item.id === 'ayoola' ? 'scale-110' : ''
+                      className={`w-full h-full object-cover ${
+                        item.id === 'ayoola' ? 'object-center scale-[1.18]' : 'object-top scale-105'
                       }`}
                     />
-                    <div className="absolute inset-x-0 bottom-0 bg-black/80 font-mono text-[8px] text-center text-[#f3efe4] py-0.5 truncate">
+                    <div className="pointer-events-none absolute inset-0 ring-2 ring-inset ring-[#040705]" />
+                    <div className="absolute inset-x-0 bottom-0 bg-black/85 font-mono text-[8px] text-center text-[#f3efe4] py-0.5 truncate">
                       {item.name}
                     </div>
                   </button>

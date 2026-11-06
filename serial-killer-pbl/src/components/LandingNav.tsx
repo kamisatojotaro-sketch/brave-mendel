@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import { ArrowUpRight } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { ChevronDown, ArrowUpRight, Sparkles } from 'lucide-react';
 import { NAV_DROPDOWN_SLOTS, PageId } from '../data/contentSlots';
 import {
   BloodyClothProp,
   HuntingKnifeProp,
   BleachBottleProp,
+  RubberGlovesProp,
   CrimsonSunglassesProp,
   BotanicalLagoonFooter,
   PaintSplatterBadge,
@@ -17,40 +18,52 @@ interface LandingNavProps {
 }
 
 export const LandingNav: React.FC<LandingNavProps> = ({ visible, onSelectPage }) => {
-  const [isBookOpened, setIsBookOpened] = useState(false);
-  const [hoveredBar, setHoveredBar] = useState<Exclude<PageId, 'home'> | null>(null);
+  const [isBookOpen, setIsBookOpen] = useState(false);
+  const [isBookHovered, setIsBookHovered] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   const handleBookClick = () => {
-    soundFX.playGlitchSwitch();
-    setIsBookOpened((prev) => !prev);
+    soundFX.playDramaticPulse();
+    setIsBookOpen((prev) => {
+      const next = !prev;
+      if (next) {
+        window.setTimeout(() => {
+          dropdownRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 120);
+      }
+      return next;
+    });
   };
 
-  // Custom Pop-Art Murder Prop Illustration for each of the 3 Dropdown Cards
-  const getCardPropIllustration = (id: Exclude<PageId, 'home'>) => {
+  // Custom Pop-Art Murder Prop Illustration per Dropdown Card
+  const getBarCrimeProp = (id: PageId) => {
     switch (id) {
       case 'guide':
-        return <BloodyClothProp className="w-16 h-16 shrink-0 drop-shadow-[0_4px_8px_rgba(0,0,0,0.6)]" />;
+        return <BleachBottleProp className="w-16 h-16 shrink-0 drop-shadow-[0_6px_12px_rgba(0,0,0,0.65)]" />;
       case 'characters':
-        return <HuntingKnifeProp className="w-16 h-16 shrink-0 drop-shadow-[0_4px_8px_rgba(0,0,0,0.6)]" />;
+        return <HuntingKnifeProp className="w-16 h-16 shrink-0 drop-shadow-[0_6px_12px_rgba(0,0,0,0.65)]" />;
       case 'author':
-        return <BleachBottleProp className="w-16 h-16 shrink-0 drop-shadow-[0_4px_8px_rgba(0,0,0,0.6)]" />;
+        return <BloodyClothProp className="w-16 h-16 shrink-0 drop-shadow-[0_6px_12px_rgba(0,0,0,0.65)]" />;
+      default:
+        return <BleachBottleProp className="w-16 h-16 shrink-0" />;
     }
   };
 
   return (
-    <section className="relative min-h-screen w-full flex flex-col items-center justify-between pt-24 pb-10 px-6 max-w-6xl mx-auto select-none">
+    <section
+      className={`relative min-h-screen w-full flex flex-col items-center justify-between pt-20 pb-8 px-4 sm:px-8 transition-all duration-1000 overflow-hidden ${
+        visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8 pointer-events-none'
+      }`}
+    >
       {/* =====================================================================
-          FLOATING POP-ART MURDER PROPS AROUND THE STAGE
-          (Knives, Blood-Stained Cloths, and Bleach Bottle scattered tastefully)
+          FLOATING CRIME-SCENE & STORY MOTIFS AROUND THE LAGOON CANVAS
+          (Father's 9-inch hunting knife, blood-stained bathroom cloth,
+          bleach bottle, and hot-pink rubber scrubbing gloves)
          ===================================================================== */}
-      <div
-        className={`pointer-events-none fixed inset-0 z-0 overflow-hidden transition-opacity duration-1000 ${
-          visible ? 'opacity-100' : 'opacity-0'
-        }`}
-      >
+      <div className="pointer-events-none absolute inset-0 overflow-hidden z-0">
         {/* Top-Left Floating Hunting Knife with Pink/Crimson Drips */}
-        <div className="hidden lg:block absolute left-10 top-28 animate-float-slow opacity-85">
-          <HuntingKnifeProp className="w-28 h-28" />
+        <div className="hidden md:block absolute left-6 lg:left-12 top-24 animate-float-slow opacity-90">
+          <HuntingKnifeProp className="w-24 h-24 lg:w-28 lg:h-28" />
           <span className="block font-geometric text-[10px] uppercase tracking-[0.25em] text-[#ff007f] font-bold -mt-1 ml-2">
             FATHER'S 9-INCH BLADE
           </span>
@@ -59,118 +72,126 @@ export const LandingNav: React.FC<LandingNavProps> = ({ visible, onSelectPage })
         {/* Top-Right Floating Blood-Soaked Bathroom Cloth */}
         <div
           style={{ animationDelay: '1.2s' }}
-          className="hidden lg:block absolute right-12 top-32 animate-float-slow opacity-90"
+          className="hidden md:block absolute right-6 lg:right-12 top-28 animate-float-slow opacity-90"
         >
-          <BloodyClothProp className="w-28 h-28" />
-          <span className="block font-geometric text-[10px] uppercase tracking-[0.22em] text-[#f3efe4]/80 -mt-1 mr-2 text-right">
+          <BloodyClothProp className="w-24 h-24 lg:w-28 lg:h-28" />
+          <span className="block font-geometric text-[10px] uppercase tracking-[0.22em] text-[#f3efe4]/85 -mt-1 mr-2 text-right">
             EVIDENCE // STAINED CLOTH
           </span>
         </div>
 
-        {/* Mid-Left Floating Bleach Bottle */}
+        {/* Bottom-Left Floating Bleach Bottle */}
         <div
           style={{ animationDelay: '2.4s' }}
-          className="hidden xl:block absolute left-20 bottom-44 animate-float-slow opacity-85"
+          className="hidden lg:block absolute left-14 bottom-40 animate-float-slow opacity-90"
         >
           <BleachBottleProp className="w-24 h-24" />
           <span className="block font-geometric text-[10px] uppercase tracking-[0.25em] text-[#00ff33] font-bold">
             LEMON &amp; BLEACH
           </span>
         </div>
+
+        {/* Bottom-Right Floating Rubber Scrubbing Gloves */}
+        <div
+          style={{ animationDelay: '3.1s' }}
+          className="hidden lg:block absolute right-14 bottom-40 animate-float-slow opacity-90"
+        >
+          <RubberGlovesProp className="w-24 h-24" />
+          <span className="block font-geometric text-[10px] uppercase tracking-[0.24em] text-[#ff007f] font-bold text-right">
+            CLEANUP GLOVES
+          </span>
+        </div>
       </div>
 
-      {/* =====================================================================
-          CENTER STAGE: GOUACHE BOTANICAL & SPLATTER HARDCOVER BOOK
-          Fuses the "How to Kill Your Family" emerald/magenta water-ripple cover
-          with the "My Sister, The Serial Killer" neon splatter & crimson sunglasses!
-         ===================================================================== */}
-      <div
-        className={`relative z-20 my-auto w-full flex flex-col items-center transition-all duration-1000 ${
-          visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20 pointer-events-none'
-        }`}
-      >
+      {/* Main Center Stage: Collector's Botanical & Pop-Art Hardcover Book */}
+      <div className="my-auto w-full max-w-5xl flex flex-col items-center z-10 pt-2">
+        {/* Interactive Custom-Crafted Green Hardcover Book */}
         <div
           onClick={handleBookClick}
-          onMouseEnter={() => soundFX.playHoverTick(520)}
-          className={`group relative cursor-pointer w-72 sm:w-80 md:w-[355px] aspect-[3/4.25] transition-all duration-500 ease-out ${
-            isBookOpened
-              ? '-translate-y-3 scale-[1.02] book-custom-glow-active'
-              : 'hover:-translate-y-4 hover:scale-[1.04] book-custom-glow'
+          onMouseEnter={() => {
+            soundFX.playHoverTick(640);
+            setIsBookHovered(true);
+          }}
+          onMouseLeave={() => setIsBookHovered(false)}
+          role="button"
+          tabIndex={0}
+          aria-expanded={isBookOpen}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              handleBookClick();
+            }
+          }}
+          className={`group relative cursor-pointer select-none transition-all duration-500 ease-out ${
+            isBookOpen
+              ? '-translate-y-2 scale-[0.96] book-custom-glow-active'
+              : 'hover:-translate-y-3 hover:scale-[1.03] book-custom-glow'
           }`}
         >
-          {/* Ambient Hot-Pink & Emerald Aura Behind Book */}
+          {/* Ambient Lagoon & Hot-Pink Halo Behind Book */}
           <div
-            className={`absolute -inset-6 rounded-3xl bg-[radial-gradient(circle_at_center,rgba(255,0,127,0.35)_0%,rgba(0,255,51,0.28)_45%,transparent_75%)] blur-2xl transition-opacity duration-500 pointer-events-none ${
-              isBookOpened ? 'opacity-100' : 'opacity-40 group-hover:opacity-95'
+            className={`pointer-events-none absolute -inset-8 rounded-full blur-3xl transition-opacity duration-500 ${
+              isBookOpen || isBookHovered
+                ? 'opacity-90 bg-[radial-gradient(circle,rgba(255,0,127,0.34)_0%,rgba(0,255,51,0.28)_50%,transparent_75%)]'
+                : 'opacity-45 bg-[radial-gradient(circle,rgba(0,255,51,0.22)_0%,transparent_70%)]'
             }`}
           />
 
-          {/* 3D Page Stack Fore-Edge (Right & Bottom Cream Paper Thickness) */}
-          <div className="absolute top-1.5 -right-3 bottom-1.5 w-3.5 rounded-r-sm bg-gradient-to-r from-[#f3efe4] via-[#d8d2c5] to-[#b5afa0] border-y border-r border-[#040705] shadow-xl pointer-events-none" />
-          <div className="absolute -bottom-2.5 left-3 -right-2.5 h-3 rounded-b-sm bg-gradient-to-b from-[#e5dfd3] to-[#9c9688] border-x border-b border-[#040705] pointer-events-none" />
-
-          {/* Main Hardcover Jacket */}
-          <div
-            className={`relative z-10 w-full h-full rounded-r-xl rounded-l-[4px] overflow-hidden hardcover-surface border-2 transition-colors duration-500 flex ${
-              isBookOpened
-                ? 'border-[#ff007f] shadow-[inset_0_0_30px_rgba(255,0,127,0.25)]'
-                : 'border-[#f3efe4]/45 group-hover:border-[#00ff33]'
-            }`}
-          >
-            {/* Left Book Spine Hinge */}
-            <div className="w-7 sm:w-8 h-full shrink-0 bg-gradient-to-r from-[#03170b] via-[#0b4723] to-[#042110] border-r-2 border-[#040705] relative flex flex-col items-center justify-between py-6">
-              <div className="inset-y-0 left-1.5 w-[1px] bg-[#f3efe4]/20 absolute" />
-              <span className="font-sans font-bold text-[8px] tracking-[0.28em] text-[#f3efe4]/75 -rotate-90 whitespace-nowrap my-auto uppercase">
-                OYINKAN BRAITHWAITE
+          {/* 3D Hardcover Book Frame */}
+          <div className="relative w-72 sm:w-80 h-[400px] sm:h-[435px] rounded-r-2xl rounded-l-md hardcover-surface border-2 border-[#f3efe4]/45 shadow-[0_28px_60px_rgba(0,0,0,0.92)] flex overflow-hidden">
+            {/* Book Left Spine Binding */}
+            <div className="w-7 h-full bg-gradient-to-r from-[#020f07] via-[#07361b] to-[#041d0e] border-r-2 border-[#f3efe4]/30 flex flex-col items-center justify-between py-5 shrink-0">
+              <div className="w-2.5 h-1.5 rounded-full bg-[#ff007f]" />
+              <span className="font-mono text-[8px] tracking-[0.28em] text-[#f3efe4]/70 uppercase [writing-mode:vertical-rl] rotate-180">
+                BRAITHWAITE // LAGOS NOIR
               </span>
+              <div className="w-2.5 h-1.5 rounded-full bg-[#00ff33]" />
             </div>
 
-            {/* Front Cover Illustration & Typography */}
-            <div className="flex-1 h-full p-5 sm:p-6 flex flex-col justify-between relative overflow-hidden">
-              {/* Swirling Cream Water Ripples on Top of Book Cover (From Cover 1) */}
+            {/* Book Front Cover Artwork */}
+            <div className="relative flex-1 h-full p-5 flex flex-col justify-between overflow-hidden">
+              {/* Top Swirling Cream Water Ripples on Book Cover */}
               <svg
-                viewBox="0 0 260 120"
+                viewBox="0 0 300 120"
                 fill="none"
-                className="absolute top-0 inset-x-0 w-full h-28 pointer-events-none opacity-65"
+                className="pointer-events-none absolute top-0 left-0 w-full opacity-50"
               >
                 <path
-                  d="M-10 22 C45 65, 95 -5, 155 42 C205 80, 235 20, 275 45"
+                  d="M-10 25 C 60 65, 130 -5, 210 40 C 260 68, 290 20, 320 35"
                   stroke="#f3efe4"
                   strokeWidth="1.5"
                 />
                 <path
-                  d="M-10 55 C55 15, 115 95, 185 48 C220 25, 245 60, 270 40"
+                  d="M-10 55 C 80 15, 150 85, 240 45 C 275 30, 295 55, 320 45"
                   stroke="#f3efe4"
                   strokeWidth="1.1"
                 />
-                <circle cx="52" cy="64" r="9" fill="#f3efe4" />
-                <path d="M44 68 A 9 9 0 0 0 60 68 Z" fill="#ff007f" />
+                <circle cx="235" cy="26" r="10" fill="#f3efe4" fillOpacity="0.85" />
+                <path d="M226 30 A 10 10 0 0 0 244 32 Z" fill="#ff007f" />
               </svg>
 
-              {/* Bottom Cream Reeds & Hot-Pink Lily/Frog Accents on Book Cover (From Cover 1) */}
+              {/* Bottom Cream & Pink Reeds + Lily Pad Silhouette on Book Cover */}
               <svg
-                viewBox="0 0 260 110"
+                viewBox="0 0 300 110"
                 fill="none"
-                className="absolute bottom-0 inset-x-0 w-full h-24 pointer-events-none"
+                className="pointer-events-none absolute bottom-0 left-0 w-full opacity-75"
               >
-                <path d="M0 78 Q70 52 135 76 T260 68 L260 110 L0 110 Z" fill="#040705" />
-                <path d="M35 85 Q45 40 28 15 Q52 45 48 85 Z" fill="#f3efe4" opacity="0.9" />
-                <path d="M55 88 Q70 35 82 12 Q74 50 66 88 Z" fill="#ff007f" />
-                <path d="M195 88 Q185 42 172 18 Q195 45 206 88 Z" fill="#f3efe4" opacity="0.9" />
-                <path d="M212 90 Q228 45 242 22 Q232 55 222 90 Z" fill="#ff007f" />
-                <ellipse cx="75" cy="96" rx="52" ry="14" fill="#0d5c2e" stroke="#258e47" strokeWidth="1.5" />
-                <ellipse cx="195" cy="98" rx="48" ry="13" fill="#0d5c2e" stroke="#258e47" strokeWidth="1.5" />
+                <path d="M0 95 Q 80 65 150 85 T 300 75 L 300 110 L 0 110 Z" fill="#040705" />
+                <path d="M35 110 Q 45 65 28 32 Q 52 68 46 110 Z" fill="#f3efe4" />
+                <path d="M52 110 Q 65 70 78 42 Q 66 78 58 110 Z" fill="#ff007f" />
+                <path d="M245 110 Q 235 65 252 35 Q 228 70 236 110 Z" fill="#f3efe4" />
+                <path d="M262 110 Q 272 75 285 48 Q 272 82 266 110 Z" fill="#ff007f" />
               </svg>
 
-              {/* Top Geometric Editorial Header (Matching "How to Kill Your Family" wide-spaced caps) */}
-              <div className="relative z-10 text-center pt-1">
+              {/* Top Geometric Editorial Header */}
+              <div className="relative z-10 text-center pt-0.5">
                 <p className="font-geometric font-semibold text-[10px] sm:text-[11px] uppercase tracking-[0.28em] text-[#f3efe4]/90 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
                   BOOKER PRIZE LONGLIST
                 </p>
               </div>
 
               {/* Center Splattered Neon-Green Title + Round Crimson Sunglasses */}
-              <div className="relative z-10 my-auto text-center space-y-3">
+              <div className="relative z-10 my-auto text-center space-y-2.5">
                 {/* Neon Paint Splatter Drops Behind Title */}
                 <PaintSplatterBadge
                   color="#00ff33"
@@ -181,75 +202,95 @@ export const LandingNav: React.FC<LandingNavProps> = ({ visible, onSelectPage })
                   className="w-10 h-10 absolute bottom-6 -left-2 opacity-85"
                 />
 
-                <h2 className="font-display font-bold text-5xl sm:text-[54px] uppercase tracking-tight leading-[0.9] text-[#00ff33] neon-text-glow">
+                <h2 className="font-display font-bold text-5xl sm:text-[52px] uppercase tracking-tight leading-[0.88] text-[#00ff33] neon-text-glow">
                   <span className="block">MY SISTER, THE</span>
                   <span className="block text-[#00ff33]">SERIAL KILLER</span>
                 </h2>
 
-                {/* Round Crimson-Tinted Sunglasses Reflecting the Knife (From Cover 2) */}
+                {/* Round Crimson-Tinted Sunglasses Reflecting the Knife */}
                 <div className="py-1 flex justify-center">
-                  <CrimsonSunglassesProp className="w-40 h-16 drop-shadow-[0_8px_14px_rgba(0,0,0,0.85)] group-hover:scale-105 transition-transform duration-300" />
+                  <CrimsonSunglassesProp className="w-36 h-14 sm:w-40 sm:h-16 drop-shadow-[0_8px_14px_rgba(0,0,0,0.85)] group-hover:scale-105 transition-transform duration-300" />
                 </div>
 
                 {/* Author Name in Wide-Spaced Geometric Caps + Editorial Serif Quote */}
-                <div className="space-y-1">
-                  <p className="font-geometric font-bold text-base sm:text-lg tracking-[0.22em] text-[#00ff33] uppercase drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)]">
+                <div className="space-y-0.5">
+                  <p className="font-geometric font-bold text-sm sm:text-base tracking-[0.22em] text-[#00ff33] uppercase drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)]">
                     OYINKAN BRAITHWAITE
                   </p>
-                  <p className="font-editorial italic text-xs sm:text-sm text-[#f3efe4]/90 tracking-wide">
+                  <p className="font-editorial italic text-xs sm:text-sm text-[#f3efe4]/95">
                     “A wickedly funny Lagos noir”
                   </p>
                 </div>
               </div>
 
-              {/* Bottom Publisher Stamp (Matching "BOROUGH EDITIONS" placement on Cover 1) */}
-              <div className="relative z-10 flex items-center justify-between pt-2 font-geometric font-bold text-[9px] tracking-[0.25em] text-[#f3efe4]/85 uppercase">
-                <span>LAGOS EDITIONS</span>
-                <span className="px-2.5 py-0.5 rounded bg-[#ff007f] text-[#f3efe4]">
-                  {isBookOpened ? 'CLOSE BOOK' : 'OPEN BOOK'}
+              {/* Bottom Bar on Book Cover */}
+              <div className="relative z-10 flex items-center justify-between border-t border-[#f3efe4]/30 pt-2">
+                <span className="font-geometric font-semibold text-[9px] text-[#f3efe4]/85 uppercase tracking-[0.22em]">
+                  LAGOS EDITIONS
+                </span>
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#ff007f]/90 font-mono text-[9px] text-[#f3efe4] uppercase tracking-wider font-bold shadow-sm">
+                  <span>{isBookOpen ? 'CLOSE BOOK' : 'OPEN BOOK'}</span>
+                  <ChevronDown
+                    className={`w-3 h-3 transition-transform duration-500 ${
+                      isBookOpen ? 'rotate-180' : ''
+                    }`}
+                  />
                 </span>
               </div>
             </div>
+
+            {/* Right Fore-Edge Cream Page Stack Effect */}
+            <div className="w-3 h-full bg-[repeating-linear-gradient(90deg,#f3efe4_0px,#f3efe4_1px,#c8c2b0_1px,#c8c2b0_2px)] opacity-90 shrink-0" />
           </div>
         </div>
 
         {/* ===================================================================
-            3 POP-ART BOTANICAL & CRIME-SCENE DROPDOWN CARDS
-            (Drop down when the hardcover book is clicked)
+            3 TRANSLUCENT FROSTED-GLASS DROPDOWN BARS
+            Drops down smoothly underneath the book when clicked
            =================================================================== */}
         <div
-          className={`w-full max-w-5xl transition-all duration-700 cubic-bezier(0.22, 1, 0.36, 1) ${
-            isBookOpened
-              ? 'max-h-[1200px] opacity-100 translate-y-0 mt-10 pb-8'
-              : 'max-h-0 opacity-0 -translate-y-10 mt-0 overflow-hidden pointer-events-none'
+          ref={dropdownRef}
+          className={`w-full max-w-5xl transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] overflow-hidden ${
+            isBookOpen
+              ? 'max-h-[900px] opacity-100 mt-7 translate-y-0'
+              : 'max-h-0 opacity-0 mt-0 -translate-y-6 pointer-events-none'
           }`}
         >
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-2 py-2">
+          {/* Connecting Stem Lines from Book to the 3 Translucent Bars */}
+          <div className="hidden md:flex justify-around items-center px-24 -mb-1">
+            <div className="w-0.5 h-6 bg-gradient-to-b from-[#00ff33] to-[#ff007f]" />
+            <div className="w-0.5 h-6 bg-gradient-to-b from-[#ff007f] to-[#00ff33]" />
+            <div className="w-0.5 h-6 bg-gradient-to-b from-[#00ff33] to-[#ff007f]" />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 px-2 pb-4">
             {NAV_DROPDOWN_SLOTS.map((bar, idx) => {
-              const isHovered = hoveredBar === bar.id;
+              const isMiddle = idx === 1;
               return (
-                <div
+                <button
                   key={bar.id}
-                  style={{ transitionDelay: `${idx * 80}ms` }}
-                  onMouseEnter={() => {
-                    soundFX.playHoverTick(540 + idx * 70);
-                    setHoveredBar(bar.id);
-                  }}
-                  onMouseLeave={() => setHoveredBar(null)}
                   onClick={() => {
                     soundFX.playGlitchSwitch();
                     onSelectPage(bar.id);
                   }}
-                  className={`group cursor-pointer rounded-2xl p-6 sm:p-7 transition-all duration-400 glass-dropdown-bar flex flex-col justify-between relative overflow-hidden ${
-                    isHovered
-                      ? 'scale-[1.03] -translate-y-1.5 border-[#ff007f] magenta-glow'
-                      : 'hover:scale-[1.02] hover:border-[#00ff33]'
+                  onMouseEnter={() => soundFX.playHoverTick(540 + idx * 90)}
+                  style={{ transitionDelay: `${idx * 75}ms` }}
+                  className={`glass-dropdown-bar group relative text-left rounded-2xl p-6 transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between overflow-hidden ${
+                    isMiddle
+                      ? 'hover:border-[#ff007f] magenta-glow'
+                      : 'hover:border-[#00ff33] neon-glow'
                   }`}
                 >
-                  {/* Top Hot-Pink & Neon-Green Ribbon Bar */}
-                  <div className="pointer-events-none absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-[#00ff33] via-[#ff007f] to-[#00ff33]" />
+                  {/* Top Specular Highlight Bar */}
+                  <div
+                    className={`pointer-events-none absolute inset-x-0 top-0 h-1 transition-opacity duration-300 opacity-75 group-hover:opacity-100 ${
+                      isMiddle
+                        ? 'bg-gradient-to-r from-transparent via-[#ff007f] to-transparent'
+                        : 'bg-gradient-to-r from-transparent via-[#00ff33] to-transparent'
+                    }`}
+                  />
 
-                  {/* Top Row: Module Badge + Custom Murder Prop Illustration (Bloody Cloth / Knife / Bleach) */}
+                  {/* Top Row: Module Badge + Custom Murder Prop Illustration (Bleach / Knife / Bloody Cloth) */}
                   <div className="flex items-start justify-between gap-3 mb-4">
                     <div>
                       <span className="inline-block font-geometric text-[10px] font-bold tracking-[0.24em] uppercase px-2.5 py-1 rounded bg-[#ff007f] text-[#f3efe4] shadow-sm">
@@ -261,54 +302,48 @@ export const LandingNav: React.FC<LandingNavProps> = ({ visible, onSelectPage })
                         {bar.id === 'author' && '“Set in the heart of Lagos, Nigeria”'}
                       </p>
                     </div>
+
+                    {/* Illustrated Murder Prop */}
                     <div className="group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-300">
-                      {getCardPropIllustration(bar.id)}
+                      {getBarCrimeProp(bar.id)}
                     </div>
                   </div>
 
-                  {/* Main Heading Title (Guide / Characters / About Author) */}
-                  <div className="text-left">
-                    <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#f3efe4]/65 mb-1">
+                  {/* Bar Title & Description */}
+                  <div>
+                    <div className="flex items-center justify-between">
+                      <h3 className="font-display text-4xl uppercase tracking-wide text-[#f3efe4] group-hover:text-[#00ff33] transition-colors">
+                        {bar.title}
+                      </h3>
+                      <ArrowUpRight className="w-5 h-5 text-[#f3efe4]/70 group-hover:text-[#ff007f] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+                    </div>
+                    <p className="mt-1 font-sans text-xs text-[#f3efe4]/85 font-medium">
                       {bar.subtitle}
                     </p>
-                    <h3 className="font-display text-5xl uppercase tracking-wider text-[#f3efe4] group-hover:text-[#00ff33] transition-colors leading-none">
-                      {bar.title}
-                    </h3>
-                  </div>
-
-                  {/* Expandable Description on Hover/Tap */}
-                  <div
-                    className={`transition-all duration-400 overflow-hidden text-left ${
-                      isHovered
-                        ? 'max-h-48 opacity-100 mt-4 pt-3.5 border-t border-[#f3efe4]/20'
-                        : 'max-h-0 opacity-0 mt-0 pt-0'
-                    }`}
-                  >
-                    <p className="font-mono text-xs text-[#f3efe4]/90 leading-relaxed mb-3">
+                    <p className="mt-2 font-mono text-[11px] text-[#f3efe4]/75 leading-relaxed">
                       {bar.dropdownDescription}
                     </p>
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#00ff33] text-[#040705] font-mono text-[11px] font-bold uppercase tracking-widest">
-                      <span>OPEN {bar.title.toUpperCase()}</span>
-                      <ArrowUpRight className="w-3.5 h-3.5" />
-                    </div>
                   </div>
 
-                  {/* Collapsed Footer */}
-                  {!isHovered && (
-                    <div className="mt-4 pt-3 border-t border-[#f3efe4]/15 flex items-center justify-between font-mono text-[10px] text-[#f3efe4]/60">
+                  {/* `<content>` Placeholder Preview Box */}
+                  <div className="mt-5 pt-3 border-t border-[#f3efe4]/20 flex items-center justify-between font-mono text-xs">
+                    <span className="text-[#00ff33] font-semibold flex items-center gap-1.5">
+                      <Sparkles className="w-3.5 h-3.5 text-[#ff007f]" />
                       <span>{bar.tag}</span>
-                      <ArrowUpRight className="w-4 h-4 text-[#ff007f]" />
-                    </div>
-                  )}
-                </div>
+                    </span>
+                    <span className="text-[10px] uppercase tracking-wider text-[#f3efe4] group-hover:text-[#ff007f] font-bold">
+                      OPEN &rarr;
+                    </span>
+                  </div>
+                </button>
               );
             })}
           </div>
         </div>
       </div>
 
-      {/* Bottom Botanical Lily Pads, Reeds, Lotus & Poison Frog Cutout Footer (From Reference Cover 1) */}
-      <div className="w-full mt-6 relative z-10">
+      {/* Bottom Botanical Lily Pads, Reeds, Lotus & Poison Frogs Cutout Footer */}
+      <div className="w-full mt-4 relative z-10">
         <BotanicalLagoonFooter className="h-28 sm:h-36 -mb-6" />
         <footer className="w-full border-t border-[#f3efe4]/20 pt-3 flex items-center justify-center font-geometric font-semibold text-[11px] tracking-[0.22em] text-[#f3efe4]/70 uppercase">
           <div>BOROUGH &amp; LAGOS NOIR EDITIONS // MY SISTER, THE SERIAL KILLER</div>

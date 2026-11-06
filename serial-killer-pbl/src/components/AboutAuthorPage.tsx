@@ -5,6 +5,7 @@ import {
   CrimsonSunglassesProp,
   BloodyClothProp,
   HuntingKnifeProp,
+  BleachBottleProp,
   PaintSplatterBadge,
   BotanicalLagoonFooter,
 } from './BotanicalCrimeArt';
@@ -19,14 +20,14 @@ export const AboutAuthorPage: React.FC<AboutAuthorPageProps> = ({ onNavigate }) 
     <div className="min-h-screen w-full pt-24 pb-16 px-4 sm:px-8 relative">
       {/* Floating Decorative Murder Props */}
       <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-        <div className="hidden xl:block absolute right-10 top-32 opacity-75 animate-float-slow">
-          <BloodyClothProp className="w-24 h-24" />
+        <div className="hidden md:block absolute right-8 top-32 opacity-80 animate-float-slow">
+          <BloodyClothProp className="w-20 h-20 lg:w-24 lg:h-24" />
         </div>
         <div
           style={{ animationDelay: '1.4s' }}
-          className="hidden xl:block absolute left-8 bottom-32 opacity-75 animate-float-slow"
+          className="hidden md:block absolute left-6 bottom-32 opacity-80 animate-float-slow"
         >
-          <HuntingKnifeProp className="w-24 h-24" />
+          <HuntingKnifeProp className="w-20 h-20 lg:w-24 lg:h-24" />
         </div>
       </div>
 
@@ -52,7 +53,7 @@ export const AboutAuthorPage: React.FC<AboutAuthorPageProps> = ({ onNavigate }) 
         {/* Hero Editorial Header */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           {/* Left Column: Stylized Book Cover Collector Card (4 cols) */}
-          <div className="lg:col-span-4 rounded-2xl border-2 border-[#f3efe4]/35 bg-[#041d0e]/95 p-6 shadow-[0_18px_40px_rgba(0,0,0,0.85)] flex flex-col justify-between relative overflow-hidden">
+          <div className="lg:col-span-4 rounded-2xl glass-dropdown-bar p-6 flex flex-col justify-between relative overflow-hidden">
             <div className="flex items-center justify-between font-mono text-xs text-[#00ff33]">
               <span>AUTHOR_FILE // 03</span>
               <span className="px-2 py-0.5 rounded bg-[#ff007f] text-[#f3efe4] font-bold">DEBUT NOVEL</span>
@@ -99,18 +100,21 @@ export const AboutAuthorPage: React.FC<AboutAuthorPageProps> = ({ onNavigate }) 
               color="#00ff33"
               className="w-20 h-20 absolute -top-6 right-8 opacity-75"
             />
-            <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-[#ff007f] text-[#f3efe4] font-mono font-bold text-xs uppercase tracking-widest mb-3">
-                <BookOpen className="w-3.5 h-3.5" />
-                <span>ABOUT THE AUTHOR &amp; NOVEL CONTEXT</span>
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-[#ff007f] text-[#f3efe4] font-mono font-bold text-xs uppercase tracking-widest mb-3">
+                  <BookOpen className="w-3.5 h-3.5" />
+                  <span>ABOUT THE AUTHOR &amp; NOVEL CONTEXT</span>
+                </div>
+                <h2 className="font-display text-6xl sm:text-7xl md:text-8xl uppercase tracking-wide text-[#00ff33] leading-none neon-text-glow">
+                  {AUTHOR_SLOT.authorName}
+                </h2>
               </div>
-              <h2 className="font-display text-6xl sm:text-7xl md:text-8xl uppercase tracking-wide text-[#00ff33] leading-none neon-text-glow">
-                {AUTHOR_SLOT.authorName}
-              </h2>
+              <BleachBottleProp className="hidden sm:block w-16 h-16 shrink-0" />
             </div>
 
             {/* Slot 1: Oyinkan Braithwaite Biography */}
-            <div className="rounded-2xl border-2 border-[#f3efe4]/30 bg-[#041d0e]/90 p-6 shadow-xl space-y-3">
+            <div className="rounded-2xl glass-dropdown-bar p-6 space-y-3">
               <div className="flex items-center justify-between font-mono text-xs text-[#00ff33] border-b border-[#f3efe4]/15 pb-2">
                 <span className="flex items-center gap-1.5">
                   <Sparkles className="w-3.5 h-3.5 text-[#ff007f]" />
@@ -124,7 +128,7 @@ export const AboutAuthorPage: React.FC<AboutAuthorPageProps> = ({ onNavigate }) 
             </div>
 
             {/* Slot 2: Book Context & Lagos Setting */}
-            <div className="rounded-2xl border-2 border-[#f3efe4]/30 bg-[#041d0e]/90 p-6 shadow-xl space-y-3">
+            <div className="rounded-2xl glass-dropdown-bar p-6 space-y-3">
               <div className="flex items-center justify-between font-mono text-xs text-[#00ff33] border-b border-[#f3efe4]/15 pb-2">
                 <span className="flex items-center gap-1.5">
                   <FileText className="w-3.5 h-3.5 text-[#ff007f]" />
@@ -138,7 +142,7 @@ export const AboutAuthorPage: React.FC<AboutAuthorPageProps> = ({ onNavigate }) 
             </div>
 
             {/* Slot 3: PBL Project Notes / Literary Analysis */}
-            <div className="rounded-2xl border-2 border-[#f3efe4]/30 bg-[#041d0e]/90 p-6 shadow-xl space-y-3">
+            <div className="rounded-2xl glass-dropdown-bar p-6 space-y-3">
               <div className="flex items-center justify-between font-mono text-xs text-[#00ff33] border-b border-[#f3efe4]/15 pb-2">
                 <span>03 // ADDITIONAL PBL ANALYSIS SLOT</span>
                 <span className="text-[#ff007f] font-bold">src/data/contentSlots.ts</span>

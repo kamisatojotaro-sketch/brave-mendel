@@ -25,110 +25,125 @@ export const PersistentHeader: React.FC<PersistentHeaderProps> = ({
   isCrimsonMode = false,
 }) => {
   const isDocked = heroStage === 'docked';
-  const isRising = heroStage === 'rising';
+
+  const getHeadlinePositionStyle = (): React.CSSProperties => {
+    switch (heroStage) {
+      case 'rising':
+        return {
+          top: '106vh',
+          left: '50%',
+          transform: 'translate(-50%, 0) scale(1.06)',
+          opacity: 0,
+        };
+      case 'docking':
+        return {
+          top: '46vh',
+          left: '50%',
+          transform: 'translate(-50%, -50%) scale(1)',
+          opacity: 1,
+        };
+      case 'docked':
+        return {
+          top: '14px',
+          left: '24px',
+          transform: 'translate(0, 0) scale(1)',
+          opacity: 1,
+        };
+    }
+  };
 
   return (
     <>
-      {/* Top Navbar Backdrop (visible once docked) */}
+      {/* Top Persistent Navigation Bar */}
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-700 ${
           isDocked
-            ? 'h-20 bg-[#052914]/85 backdrop-blur-md border-b border-[#f3efe4]/20 shadow-[0_6px_25px_rgba(0,0,0,0.45)]'
-            : 'h-0 bg-transparent border-transparent pointer-events-none'
+            ? isCrimsonMode
+              ? 'bg-[#2a060e]/85 backdrop-blur-xl border-b border-[#ff007f]/35 py-3 shadow-lg'
+              : 'bg-[#041d0e]/80 backdrop-blur-xl border-b border-[#f3efe4]/20 py-3 shadow-lg'
+            : 'bg-transparent border-transparent py-4 pointer-events-none'
         }`}
       >
-        <div className="max-w-7xl mx-auto h-full px-6 flex items-center justify-end gap-3 sm:gap-6">
-          {/* Vinyl Disc Easter Egg + Audio Controls once docked */}
-          <nav
-            className={`flex items-center gap-2 sm:gap-3 transition-all duration-500 ${
-              isDocked ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-4 pointer-events-none'
+        <div className="w-full px-6 flex items-center justify-end gap-3 h-11">
+          {/* Top-Bar Interactive Vinyl Disc Easter Egg & Controls */}
+          <div
+            className={`flex items-center gap-3 transition-all duration-700 ${
+              isDocked ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-3 pointer-events-none'
             }`}
           >
-            {/* Music Disc Easter Egg */}
             <VinylEasterEgg />
 
-            {/* Replay Hero Animation button */}
             <button
               onClick={onReplayIntro}
-              title="Replay Hero Intro Animation"
-              className="p-2 rounded-full text-[#f3efe4]/75 hover:text-[#ff007f] border border-transparent hover:border-[#ff007f]/50 transition-colors hidden sm:flex items-center gap-1 font-mono text-[11px]"
+              title="Replay title intro animation"
+              className="p-2 rounded-full border border-[#f3efe4]/25 bg-[#040705]/60 text-[#f3efe4]/80 hover:text-[#00ff33] hover:border-[#00ff33] transition-colors"
             >
-              <RotateCcw className="w-4 h-4" />
+              <RotateCcw className="w-3.5 h-3.5" />
             </button>
 
-            {/* Audio Mute/Unmute Toggle */}
             <button
               onClick={onToggleMute}
-              title={isMuted ? 'Unmute UI Sound FX (Muted by default)' : 'Mute UI Sound FX'}
-              className={`px-3 py-1.5 rounded-full border transition-all flex items-center gap-1.5 font-mono text-[11px] ${
+              title={isMuted ? 'Unmute UI sound FX' : 'Mute UI sound FX'}
+              className={`p-2 rounded-full border transition-colors ${
                 !isMuted
-                  ? 'border-[#ff007f] text-[#f3efe4] bg-[#ff007f] font-bold shadow-[0_0_15px_rgba(255,0,127,0.5)]'
-                  : 'border-[#f3efe4]/30 text-[#f3efe4]/75 hover:text-[#f3efe4] hover:border-[#f3efe4]'
+                  ? 'border-[#00ff33] bg-[#00ff33]/15 text-[#00ff33]'
+                  : 'border-[#f3efe4]/25 bg-[#040705]/60 text-[#f3efe4]/75 hover:text-[#ff007f] hover:border-[#ff007f]'
               }`}
             >
               {isMuted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
-              <span className="hidden md:inline">{isMuted ? 'SFX OFF' : 'SFX ON'}</span>
             </button>
-          </nav>
+          </div>
         </div>
       </header>
 
-      {/* The Animated Headline ("How to get away with murder") that rises from bottom and docks top-left */}
+      {/* Animated Hero Headline: Rises from bottom (~1.5s) -> Docks into Top-Left Corner */}
       <div
+        style={getHeadlinePositionStyle()}
         onClick={() => {
           if (isDocked) {
-            soundFX.playHoverTick(600);
+            soundFX.playHoverTick(520);
             onNavigate('home');
           }
         }}
-        style={{
-          transition:
-            'top 1.1s cubic-bezier(0.22, 1, 0.36, 1), left 1.1s cubic-bezier(0.22, 1, 0.36, 1), transform 1.1s cubic-bezier(0.22, 1, 0.36, 1), opacity 1.1s ease-out',
-        }}
-        className={`fixed z-50 select-none ${
-          isRising
-            ? 'top-[78%] left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 scale-95 pointer-events-none'
-            : heroStage === 'docking'
-            ? 'top-[46%] left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-100 scale-100 pointer-events-none'
-            : 'top-3.5 left-6 translate-x-0 translate-y-0 opacity-100 cursor-pointer group'
+        className={`fixed z-50 transition-all duration-[1150ms] ease-[cubic-bezier(0.22,1,0.36,1)] select-none ${
+          isDocked ? 'cursor-pointer group' : 'pointer-events-none w-full px-4 text-center'
         }`}
       >
-        {/* Top Tagline before docking */}
-        <div
-          className={`font-sans font-semibold uppercase tracking-[0.3em] transition-all duration-700 ${
-            isDocked
-              ? 'text-[9px] mb-0.5 text-[#00ff33] group-hover:text-[#ff007f]'
-              : 'text-xs sm:text-sm mb-3 text-center text-[#f3efe4]'
-          }`}
-        >
-          {isDocked ? 'OYINKAN BRAITHWAITE // LAGOS EDITION' : 'OYINKAN BRAITHWAITE — MY SISTER, THE SERIAL KILLER'}
-        </div>
-
-        {/* Main Headline */}
-        <h1
-          className={`font-display uppercase tracking-wider leading-none transition-all duration-1000 ${
-            isDocked
-              ? 'text-xl sm:text-2xl text-[#f3efe4] group-hover:text-[#00ff33] flex items-center gap-2'
-              : 'text-5xl sm:text-7xl md:text-8xl lg:text-9xl text-center text-[#f3efe4] neon-text-glow whitespace-nowrap'
-          }`}
-        >
-          <span>How to get away</span>
-          <span
-            className={`${
+        <div className={`flex items-center gap-3 ${isDocked ? '' : 'justify-center'}`}>
+          {isDocked && (
+            <span
+              className={`w-2.5 h-2.5 rounded-full transition-colors ${
+                isCrimsonMode
+                  ? 'bg-[#ff007f] shadow-[0_0_10px_#ff007f]'
+                  : 'bg-[#00ff33] shadow-[0_0_10px_#00ff33]'
+              }`}
+            />
+          )}
+          <h1
+            className={`font-display uppercase tracking-wider transition-all duration-[1150ms] ${
               isDocked
-                ? isCrimsonMode
-                  ? 'text-[#ff007f]'
-                  : 'text-[#00ff33]'
-                : 'block sm:inline text-[#00ff33] sm:ml-4'
+                ? 'text-2xl sm:text-3xl text-[#f3efe4] group-hover:text-[#00ff33]'
+                : 'text-[clamp(2rem,5.8vw,6.2rem)] leading-none text-[#00ff33] neon-text-glow'
             }`}
           >
-            with murder
-          </span>
-        </h1>
-
-        {/* Subtle underline accent when rising/center */}
+            How to get away{' '}
+            <span
+              className={
+                isCrimsonMode
+                  ? 'text-[#ff007f]'
+                  : isDocked
+                  ? 'text-[#00ff33]'
+                  : 'text-[#ff007f] magenta-text-shadow'
+              }
+            >
+              with murder
+            </span>
+          </h1>
+        </div>
         {!isDocked && (
-          <div className="mt-6 mx-auto h-1 w-48 sm:w-72 bg-gradient-to-r from-transparent via-[#ff007f] to-transparent" />
+          <p className="mt-4 font-editorial italic text-xl sm:text-2xl text-[#f3efe4] text-center animate-pulse">
+            “Bleach masks the smell of blood better than anything else...”
+          </p>
         )}
       </div>
     </>
