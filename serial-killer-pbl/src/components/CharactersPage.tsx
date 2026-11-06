@@ -48,6 +48,7 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [isGlitching, setIsGlitching] = useState(false);
+  const [activeHudTab, setActiveHudTab] = useState<'select' | 'stats' | 'story'>('select');
 
   const touchStartX = useRef<number | null>(null);
   const touchEndX = useRef<number | null>(null);
@@ -171,12 +172,30 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
           )}
         </div>
 
-        {/* Right Header Status */}
+        {/* Right Header Status — Interactive Fun Pop-Art Tabs (SELECT / STATS / STORY) */}
         {selectedIndex !== null && (
-          <div className="flex items-center gap-5 font-display text-xl tracking-wider">
-            <span className="text-[#00ff33] underline underline-offset-4">SELECT</span>
-            <span className="text-[#ff007f]">STATS</span>
-            <span className="text-[#f3efe4]/80">STORY</span>
+          <div className="flex items-center gap-4 sm:gap-6 font-marker text-xl sm:text-2xl tracking-wider -rotate-2">
+            {(['select', 'stats', 'story'] as const).map((tabKey) => {
+              const isActiveTab = activeHudTab === tabKey;
+              return (
+                <button
+                  key={tabKey}
+                  onClick={() => {
+                    soundFX.playHoverTick(680);
+                    setActiveHudTab(tabKey);
+                  }}
+                  className={`uppercase transition-all duration-300 px-2.5 py-0.5 rounded-lg ${
+                    isActiveTab
+                      ? tabKey === 'stats'
+                        ? 'text-[#ff007f] magenta-text-shadow scale-110 -rotate-3 underline decoration-wavy decoration-[#00ff33] underline-offset-4'
+                        : 'text-[#00ff33] neon-text-glow scale-110 -rotate-3 underline decoration-wavy decoration-[#ff007f] underline-offset-4'
+                      : 'text-[#f3efe4]/75 hover:text-[#ff007f] hover:scale-105'
+                  }`}
+                >
+                  {tabKey}
+                </button>
+              );
+            })}
           </div>
         )}
       </div>
@@ -319,17 +338,21 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
               </div>
 
               <div className="relative z-10 -rotate-6 origin-bottom-left py-2">
-                <h2 className="font-display text-7xl sm:text-8xl xl:text-[110px] uppercase tracking-wide text-[#00ff33] leading-[0.85] neon-text-glow">
+                <h2 className="font-arcade text-7xl sm:text-8xl xl:text-[106px] uppercase tracking-wider text-[#00ff33] leading-[0.88] neon-text-glow">
                   {activeCharacter.name}
                 </h2>
-                <p className="mt-2 font-display text-2xl sm:text-3xl xl:text-4xl uppercase tracking-wider text-[#f3efe4] drop-shadow-[0_3px_8px_rgba(0,0,0,0.95)]">
+                <p className="mt-2 font-marker text-xl sm:text-2xl xl:text-3xl tracking-wide text-[#ff007f] drop-shadow-[0_3px_8px_rgba(0,0,0,0.95)]">
                   {activeCharacter.roleTitle}
                 </p>
               </div>
 
               {/* Korede's Room 313 Editorial Note */}
-              <div className="p-3.5 rounded-xl glass-dropdown-bar border-l-4 border-l-[#ff007f] shadow-md">
-                <span className="block font-geometric text-[9px] uppercase tracking-[0.24em] text-[#ff007f] font-bold mb-1">
+              <div
+                className={`p-4 rounded-xl glass-dropdown-bar border-l-4 border-l-[#ff007f] transition-all duration-300 ${
+                  activeHudTab === 'story' ? 'ring-2 ring-[#00ff33] neon-glow scale-[1.02]' : 'shadow-md'
+                }`}
+              >
+                <span className="block font-marker text-xs tracking-wider text-[#ff007f] mb-1">
                   KOREDE’S CONFESSION // ROOM 313
                 </span>
                 <p className="font-editorial italic text-base sm:text-lg text-[#f3efe4] leading-snug">
@@ -366,17 +389,23 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
             {/* RIGHT SIDE POP-UP: Colorful Pink & Neon Stat Bars + Bio Box (4 cols) */}
             <div className="lg:col-span-4 flex flex-col justify-center space-y-6 z-20 animate-[fadeSlideLeft_0.45s_ease-out]">
               {/* 3 Bold Gouache Stat Bars (Alternating Neon Green & Hot Pink) */}
-              <div className="space-y-4">
+              <div
+                className={`space-y-4 p-4 rounded-2xl transition-all duration-300 ${
+                  activeHudTab === 'stats'
+                    ? 'glass-dropdown-bar ring-2 ring-[#ff007f] magenta-glow scale-[1.02]'
+                    : ''
+                }`}
+              >
                 {activeCharacter.stats.map((stat, sIdx) => {
                   const isPinkBar = sIdx === 1;
                   return (
                     <div key={stat.label} className="space-y-1.5">
                       <div className="flex items-center justify-between">
-                        <span className="font-display text-xl sm:text-2xl tracking-wider uppercase text-[#f3efe4]">
+                        <span className="font-marker text-lg sm:text-xl tracking-wide uppercase text-[#f3efe4]">
                           {stat.label}
                         </span>
                         <span
-                          className={`font-mono text-xs font-bold ${
+                          className={`font-display text-lg tracking-wider ${
                             isPinkBar ? 'text-[#ff007f]' : 'text-[#00ff33]'
                           }`}
                         >
@@ -399,7 +428,11 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
               </div>
 
               {/* Translucent Frosted Lagoon Bio Card (`<main character intros>`) */}
-              <div className="rounded-2xl glass-dropdown-bar p-5 sm:p-6 space-y-3 relative overflow-hidden">
+              <div
+                className={`rounded-2xl glass-dropdown-bar p-5 sm:p-6 space-y-3 relative overflow-hidden transition-all duration-300 ${
+                  activeHudTab === 'story' ? 'ring-2 ring-[#ff007f] magenta-glow scale-[1.02]' : ''
+                }`}
+              >
                 <div className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#ff007f] via-[#00ff33] to-[#ff007f]" />
                 <div className="flex items-center justify-between font-mono text-[10px] text-[#00ff33] border-b border-[#f3efe4]/15 pb-2">
                   <span className="flex items-center gap-1.5">
