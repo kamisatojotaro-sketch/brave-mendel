@@ -59,8 +59,8 @@ export const PersistentHeader: React.FC<PersistentHeaderProps> = ({
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-700 ${
           isDocked
             ? isCrimsonMode
-              ? 'bg-[#2a060e]/85 backdrop-blur-xl border-b border-[#ff007f]/35 py-3 shadow-lg'
-              : 'bg-[#041d0e]/80 backdrop-blur-xl border-b border-[#f3efe4]/20 py-3 shadow-lg'
+              ? 'bg-[#2a060e]/85 backdrop-blur-xl border-b border-[#c0392b]/35 py-3 shadow-lg'
+              : 'bg-[#0a120c]/80 backdrop-blur-xl border-b border-[#f1efe6]/20 py-3 shadow-lg'
             : 'bg-transparent border-transparent py-4 pointer-events-none'
         }`}
       >
@@ -76,7 +76,7 @@ export const PersistentHeader: React.FC<PersistentHeaderProps> = ({
             <button
               onClick={onReplayIntro}
               title="Replay title intro animation"
-              className="p-2 rounded-full border border-[#f3efe4]/25 bg-[#040705]/60 text-[#f3efe4]/80 hover:text-[#00ff33] hover:border-[#00ff33] transition-colors"
+              className="p-2 rounded-full border border-[#f1efe6]/25 bg-[#050505]/60 text-[#f1efe6]/80 hover:text-[#00ff00] hover:border-[#00ff00] transition-colors"
             >
               <RotateCcw className="w-3.5 h-3.5" />
             </button>
@@ -86,8 +86,8 @@ export const PersistentHeader: React.FC<PersistentHeaderProps> = ({
               title={isMuted ? 'Unmute UI sound FX' : 'Mute UI sound FX'}
               className={`p-2 rounded-full border transition-colors ${
                 !isMuted
-                  ? 'border-[#00ff33] bg-[#00ff33]/15 text-[#00ff33]'
-                  : 'border-[#f3efe4]/25 bg-[#040705]/60 text-[#f3efe4]/75 hover:text-[#ff007f] hover:border-[#ff007f]'
+                  ? 'border-[#00ff00] bg-[#00ff00]/15 text-[#00ff00]'
+                  : 'border-[#f1efe6]/25 bg-[#050505]/60 text-[#f1efe6]/75 hover:text-[#c0392b] hover:border-[#c0392b]'
               }`}
             >
               {isMuted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
@@ -114,26 +114,26 @@ export const PersistentHeader: React.FC<PersistentHeaderProps> = ({
             <span
               className={`w-2.5 h-2.5 rounded-full transition-colors ${
                 isCrimsonMode
-                  ? 'bg-[#ff007f] shadow-[0_0_10px_#ff007f]'
-                  : 'bg-[#00ff33] shadow-[0_0_10px_#00ff33]'
+                  ? 'bg-[#c0392b] shadow-[0_0_10px_#c0392b]'
+                  : 'bg-[#00ff00] shadow-[0_0_10px_#00ff00]'
               }`}
             />
           )}
           <h1
             className={`font-display uppercase tracking-wider transition-all duration-[1150ms] ${
               isDocked
-                ? 'text-2xl sm:text-3xl text-[#f3efe4] group-hover:text-[#00ff33]'
-                : 'text-[clamp(2rem,5.8vw,6.2rem)] leading-none text-[#00ff33] neon-text-glow'
+                ? 'text-2xl sm:text-3xl text-[#f1efe6] group-hover:text-[#00ff00]'
+                : 'text-[clamp(2rem,5.8vw,6.2rem)] leading-none text-[#00ff00] neon-text-glow'
             }`}
           >
             How to get away{' '}
             <span
               className={
                 isCrimsonMode
-                  ? 'text-[#ff007f]'
+                  ? 'text-[#c0392b]'
                   : isDocked
-                  ? 'text-[#00ff33]'
-                  : 'text-[#ff007f] magenta-text-shadow'
+                  ? 'text-[#00ff00]'
+                  : 'text-[#c0392b] magenta-text-shadow'
               }
             >
               with murder
@@ -141,7 +141,7 @@ export const PersistentHeader: React.FC<PersistentHeaderProps> = ({
           </h1>
         </div>
         {!isDocked && (
-          <p className="mt-4 font-editorial italic text-xl sm:text-2xl text-[#f3efe4] text-center animate-pulse">
+          <p className="mt-4 font-editorial italic text-xl sm:text-2xl text-[#f1efe6] text-center animate-pulse">
             “Bleach masks the smell of blood better than anything else...”
           </p>
         )}

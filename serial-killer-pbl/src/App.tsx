@@ -62,7 +62,7 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-botanical-lagoon text-[#f3efe4] relative overflow-x-hidden">
+    <div className="min-h-screen w-full bg-botanical-lagoon text-[#f1efe6] relative overflow-x-hidden">
       {/* Tactile Matte Gouache / Book-Jacket Grain Overlay */}
       <div className="fixed inset-0 pointer-events-none gouache-grain-overlay z-40" />
 

@@ -3,86 +3,82 @@
 @tailwind utilities;
 
 :root {
-  --bg-lagoon: #0d5c2e;
-  --bg-forest: #063318;
-  --bg-ink: #040705;
-  --accent-neon: #00ff33;
-  --accent-magenta: #ff007f;
-  --accent-crimson: #d90429;
-  --text-paper: #f3efe4;
+  --bg-noir: #050505;
+  --accent-neon: #00ff00;
+  --accent-crimson: #c0392b;
+  --accent-blood: #3a0b10;
+  --text-paper: #f1efe6;
 }
 
 html {
   scroll-behavior: smooth;
-  background-color: #063318;
-  color: #f3efe4;
-  font-family: 'Bricolage Grotesque', sans-serif;
+  background-color: #050505;
+  color: #f1efe6;
+  font-family: 'Space Grotesk', sans-serif;
 }
 
-/* Lush Gouache Botanical Lagoon Canvas (Inspired by "How to Kill Your Family" Cover) */
+/* Original Palette Canvas: Pure Noir Black (#050505) with Subtle Neon-Green (#00ff00) & Blood-Red (#3a0b10) Atmosphere */
 .bg-botanical-lagoon {
   background:
-    radial-gradient(circle at 50% 16%, rgba(37, 152, 76, 0.46) 0%, transparent 56%),
-    radial-gradient(circle at 14% 72%, rgba(255, 0, 127, 0.14) 0%, transparent 42%),
-    radial-gradient(circle at 86% 78%, rgba(255, 0, 127, 0.12) 0%, transparent 42%),
-    linear-gradient(180deg, #0e6331 0%, #07391c 48%, #041d0e 82%, #040705 100%);
+    radial-gradient(circle at 50% 16%, rgba(0, 255, 0, 0.09) 0%, transparent 55%),
+    radial-gradient(circle at 15% 75%, rgba(192, 57, 43, 0.1) 0%, transparent 42%),
+    radial-gradient(circle at 85% 80%, rgba(0, 255, 0, 0.06) 0%, transparent 42%),
+    linear-gradient(180deg, #050505 0%, #071209 52%, #050505 100%);
 }
 
-/* Tactile Matte Risograph / Gouache Book-Jacket Grain Overlay */
+/* Tactile Matte Book-Jacket Grain Overlay */
 .gouache-grain-overlay {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.055'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
 }
 
-/* Pop-Art & Splatter Text Accents */
+/* Neon Green & Crimson Text / Box Accents */
 .neon-text-glow {
-  text-shadow: 0 3px 0 #040705, 0 0 18px rgba(0, 255, 51, 0.45);
+  text-shadow: 0 3px 0 #050505, 0 0 18px rgba(0, 255, 0, 0.5);
 }
 
-.magenta-text-shadow {
-  text-shadow: 0 3px 0 #040705, 0 0 18px rgba(255, 0, 127, 0.45);
+.magenta-text-shadow,
+.crimson-text-shadow {
+  text-shadow: 0 3px 0 #050505, 0 0 18px rgba(192, 57, 43, 0.6);
 }
 
 .neon-glow {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.65), 0 0 15px rgba(0, 255, 51, 0.25);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8), 0 0 16px rgba(0, 255, 0, 0.28);
 }
 
-.magenta-glow {
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 0, 127, 0.45);
-}
-
+.magenta-glow,
 .crimson-glow {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.75), 0 0 22px rgba(217, 4, 41, 0.5);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.85), 0 0 20px rgba(192, 57, 43, 0.5);
 }
 
-/* Custom Crafted 3D Borough/Lagos Hardcover Surface & Glow */
+/* Custom Crafted 3D Hardcover Surface & Glow */
 .hardcover-surface {
   background:
-    radial-gradient(circle at 50% 32%, rgba(37, 148, 74, 0.52) 0%, transparent 62%),
-    linear-gradient(160deg, #126e39 0%, #083d1e 58%, #041f0f 100%);
+    radial-gradient(circle at 50% 30%, rgba(0, 255, 0, 0.16) 0%, transparent 62%),
+    linear-gradient(160deg, #0c2914 0%, #06150a 58%, #050505 100%);
 }
 
 .book-custom-glow:hover {
-  filter: drop-shadow(0 22px 35px rgba(0, 0, 0, 0.85)) drop-shadow(0 0 24px rgba(255, 0, 127, 0.4)) drop-shadow(0 0 28px rgba(0, 255, 51, 0.4));
+  filter: drop-shadow(0 22px 35px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 24px rgba(0, 255, 0, 0.42)) drop-shadow(0 0 24px rgba(192, 57, 43, 0.32));
 }
 
 .book-custom-glow-active {
-  filter: drop-shadow(0 25px 40px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 30px rgba(255, 0, 127, 0.55));
+  filter: drop-shadow(0 25px 40px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 28px rgba(0, 255, 0, 0.5));
 }
 
-/* Genuine Translucent Frosted Lagoon Glass Dropdown Bars */
+/* Translucent Frosted Noir & Neon-Green Glass Dropdown Bars */
 .glass-dropdown-bar {
   background: linear-gradient(
     145deg,
-    rgba(11, 62, 31, 0.54) 0%,
-    rgba(4, 24, 12, 0.64) 100%
+    rgba(12, 22, 14, 0.62) 0%,
+    rgba(5, 5, 5, 0.74) 100%
   );
-  backdrop-filter: blur(22px) saturate(165%);
-  -webkit-backdrop-filter: blur(22px) saturate(165%);
-  border: 1.5px solid rgba(243, 239, 228, 0.28);
+  backdrop-filter: blur(22px) saturate(150%);
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+  border: 1.5px solid rgba(241, 239, 230, 0.22);
   box-shadow:
-    0 18px 38px rgba(0, 0, 0, 0.72),
-    inset 0 1px 0 rgba(243, 239, 228, 0.32),
-    inset 0 -1px 0 rgba(0, 255, 51, 0.14);
+    0 18px 38px rgba(0, 0, 0, 0.82),
+    inset 0 1px 0 rgba(241, 239, 230, 0.24),
+    inset 0 -1px 0 rgba(0, 255, 0, 0.14);
 }
 
 /* Vinyl Disc Continuous Spin Animation */
@@ -142,7 +138,7 @@ html {
   25% {
     opacity: 0.85;
     transform: translate(-8px, 2px) skewX(-4deg);
-    filter: drop-shadow(6px 0 0 #ff007f) drop-shadow(-6px 0 0 #00ff33);
+    filter: drop-shadow(6px 0 0 #c0392b) drop-shadow(-6px 0 0 #00ff00);
   }
   60% {
     opacity: 0.6;
@@ -159,9 +155,9 @@ html {
   animation: neonGlitch 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
-/* Subtle, Refined Character Hover Outline (Not overly bright or thick) */
+/* Subtle, Refined Character Hover Outline */
 .character-subtle-outline {
-  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.85), 0 0 10px rgba(243, 239, 228, 0.18);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.9), 0 0 10px rgba(241, 239, 230, 0.18);
 }
 
 @keyframes fadeSlideRight {
@@ -201,9 +197,9 @@ html {
   width: 7px;
 }
 ::-webkit-scrollbar-track {
-  background: #041d0e;
+  background: #050505;
 }
 ::-webkit-scrollbar-thumb {
-  background: #ff007f;
+  background: #00ff00;
   border-radius: 4px;
 }

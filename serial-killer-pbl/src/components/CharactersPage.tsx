@@ -267,7 +267,7 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
           {selectedIndex !== null ? (
             <button
               onClick={() => handleSwitchHudMode('select')}
-              className="px-4 py-1.5 rounded-full bg-[#ff007f] text-[#f3efe4] hover:bg-[#00ff33] hover:text-[#040705] font-sans text-xs font-bold uppercase tracking-widest transition-all flex items-center gap-2 magenta-glow"
+              className="px-4 py-1.5 rounded-full bg-[#c0392b] text-[#f1efe6] hover:bg-[#00ff00] hover:text-[#050505] font-sans text-xs font-bold uppercase tracking-widest transition-all flex items-center gap-2 magenta-glow"
             >
               <Grid className="w-3.5 h-3.5" />
               <span>BACK TO ALL CHARACTERS</span>
@@ -278,22 +278,22 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
                 soundFX.playHoverTick(500);
                 onNavigate('home');
               }}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#041d0e]/85 border border-[#f3efe4]/25 font-sans text-xs font-bold text-[#f3efe4] hover:border-[#ff007f] hover:text-[#ff007f] transition-colors uppercase tracking-widest"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0a120c]/85 border border-[#f1efe6]/25 font-sans text-xs font-bold text-[#f1efe6] hover:border-[#c0392b] hover:text-[#c0392b] transition-colors uppercase tracking-widest"
             >
-              <ArrowLeft className="w-4 h-4 text-[#00ff33]" />
+              <ArrowLeft className="w-4 h-4 text-[#00ff00]" />
               <span>BACK TO HARDCOVER</span>
             </button>
           )}
         </div>
 
         {/* Interactive SELECT / STATS / STORY Mode Switcher */}
-        <div className="flex items-center gap-2 sm:gap-3 bg-[#041d0e]/90 border border-[#f3efe4]/25 rounded-full px-3 py-1.5 backdrop-blur-md shadow-lg">
+        <div className="flex items-center gap-2 sm:gap-3 bg-[#0a120c]/90 border border-[#f1efe6]/25 rounded-full px-3 py-1.5 backdrop-blur-md shadow-lg">
           <button
             onClick={() => handleSwitchHudMode('select')}
-            className={`px-3.5 py-1 rounded-full font-marker text-lg sm:text-xl tracking-wider uppercase transition-all flex items-center gap-1.5 ${
+            className={`px-3.5 py-1 rounded-full font-display text-lg sm:text-xl tracking-wider uppercase transition-all flex items-center gap-1.5 ${
               hudMode === 'select'
-                ? 'bg-[#00ff33] text-[#040705] shadow-[0_0_14px_rgba(0,255,51,0.6)] scale-105 -rotate-2'
-                : 'text-[#f3efe4]/80 hover:text-[#00ff33]'
+                ? 'bg-[#00ff00] text-[#050505] shadow-[0_0_14px_rgba(0, 255, 0,0.6)] scale-105 -rotate-2'
+                : 'text-[#f1efe6]/80 hover:text-[#00ff00]'
             }`}
           >
             <Grid className="w-4 h-4" />
@@ -302,10 +302,10 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
 
           <button
             onClick={() => handleSwitchHudMode('stats')}
-            className={`px-3.5 py-1 rounded-full font-marker text-lg sm:text-xl tracking-wider uppercase transition-all flex items-center gap-1.5 ${
+            className={`px-3.5 py-1 rounded-full font-display text-lg sm:text-xl tracking-wider uppercase transition-all flex items-center gap-1.5 ${
               hudMode === 'stats'
-                ? 'bg-[#ff007f] text-[#f3efe4] shadow-[0_0_14px_rgba(255,0,127,0.65)] scale-105 -rotate-2'
-                : 'text-[#f3efe4]/80 hover:text-[#ff007f]'
+                ? 'bg-[#c0392b] text-[#f1efe6] shadow-[0_0_14px_rgba(192, 57, 43,0.65)] scale-105 -rotate-2'
+                : 'text-[#f1efe6]/80 hover:text-[#c0392b]'
             }`}
           >
             <BarChart3 className="w-4 h-4" />
@@ -314,10 +314,10 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
 
           <button
             onClick={() => handleSwitchHudMode('story')}
-            className={`px-3.5 py-1 rounded-full font-marker text-lg sm:text-xl tracking-wider uppercase transition-all flex items-center gap-1.5 ${
+            className={`px-3.5 py-1 rounded-full font-display text-lg sm:text-xl tracking-wider uppercase transition-all flex items-center gap-1.5 ${
               hudMode === 'story'
-                ? 'bg-[#00ff33] text-[#040705] shadow-[0_0_14px_rgba(0,255,51,0.6)] scale-105 -rotate-2'
-                : 'text-[#f3efe4]/80 hover:text-[#00ff33]'
+                ? 'bg-[#00ff00] text-[#050505] shadow-[0_0_14px_rgba(0, 255, 0,0.6)] scale-105 -rotate-2'
+                : 'text-[#f1efe6]/80 hover:text-[#00ff00]'
             }`}
           >
             <BookOpen className="w-4 h-4" />
@@ -329,7 +329,7 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
       {/* =====================================================================
           MODE 1 (`SELECT`): FULL-SCREEN 5-CHARACTER LINEUP STAGE
           - No "CLICK TO ZOOM IN" text anywhere
-          - Subtle, refined hover outline (`border-[#f3efe4]/45` + gentle lift)
+          - Subtle, refined hover outline (`border-[#f1efe6]/45` + gentle lift)
           - Ayoola's white border artifact completely cropped & vignette-masked
          ===================================================================== */}
       {selectedIndex === null && (
@@ -360,9 +360,9 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
                 >
                   {/* Character Card with Subtle Outline on Hover & All-Edge Dark Masking */}
                   <div
-                    className={`relative w-full h-full rounded-2xl overflow-hidden transition-all duration-500 bg-[#040705] ${
+                    className={`relative w-full h-full rounded-2xl overflow-hidden transition-all duration-500 bg-[#050505] ${
                       isHovered
-                        ? 'border border-[#f3efe4]/45'
+                        ? 'border border-[#f1efe6]/45'
                         : 'border border-[#258e47]/30'
                     }`}
                   >
@@ -381,25 +381,25 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
                     />
 
                     {/* All-Sides Dark Frame + Vignette Mask */}
-                    <div className="pointer-events-none absolute inset-0 ring-4 ring-inset ring-[#040705] shadow-[inset_0_0_28px_14px_#040705]" />
+                    <div className="pointer-events-none absolute inset-0 ring-4 ring-inset ring-[#050505] shadow-[inset_0_0_28px_14px_#050505]" />
 
                     {/* Bottom Dark Emerald & Noir Gradient for Name Readability */}
-                    <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#040705] via-[#041d0e]/80 to-transparent pointer-events-none" />
+                    <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#050505] via-[#0a120c]/80 to-transparent pointer-events-none" />
 
                     {/* Stylized Slanted Character Name & Subtitle */}
                     <div className="absolute inset-x-3 bottom-6 text-center pointer-events-none transition-transform duration-500 group-hover:-translate-y-1.5">
                       <h3
-                        className={`font-arcade text-5xl sm:text-6xl uppercase tracking-wider leading-none -rotate-3 transition-colors duration-300 ${
+                        className={`font-display text-5xl sm:text-6xl uppercase tracking-wider leading-none -rotate-3 transition-colors duration-300 ${
                           isHovered
-                            ? 'text-[#00ff33] neon-text-glow'
-                            : 'text-[#f3efe4] drop-shadow-[0_4px_10px_rgba(0,0,0,0.95)]'
+                            ? 'text-[#00ff00] neon-text-glow'
+                            : 'text-[#f1efe6] drop-shadow-[0_4px_10px_rgba(0,0,0,0.95)]'
                         }`}
                       >
                         {char.name}
                       </h3>
                       <p
-                        className={`mt-1.5 font-marker text-xs sm:text-sm tracking-wide -rotate-3 transition-colors ${
-                          isHovered ? 'text-[#ff007f]' : 'text-[#f3efe4]/80'
+                        className={`mt-1.5 font-display text-xs sm:text-sm tracking-wide -rotate-3 transition-colors ${
+                          isHovered ? 'text-[#c0392b]' : 'text-[#f1efe6]/80'
                         }`}
                       >
                         {LINEUP_SUBTITLES[char.id]}
@@ -428,7 +428,7 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
           <button
             onClick={handlePrev}
             aria-label="Previous Character"
-            className="hidden xl:flex fixed left-6 top-1/2 -translate-y-1/2 z-30 w-14 h-14 items-center justify-center bg-[#ff007f] text-[#f3efe4] hover:bg-[#00ff33] hover:text-[#040705] transition-all magenta-glow"
+            className="hidden xl:flex fixed left-6 top-1/2 -translate-y-1/2 z-30 w-14 h-14 items-center justify-center bg-[#c0392b] text-[#f1efe6] hover:bg-[#00ff00] hover:text-[#050505] transition-all magenta-glow"
             style={{
               clipPath: 'polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%)',
             }}
@@ -440,7 +440,7 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
           <button
             onClick={handleNext}
             aria-label="Next Character"
-            className="hidden xl:flex fixed right-6 top-1/2 -translate-y-1/2 z-30 w-14 h-14 items-center justify-center bg-[#ff007f] text-[#f3efe4] hover:bg-[#00ff33] hover:text-[#040705] transition-all magenta-glow"
+            className="hidden xl:flex fixed right-6 top-1/2 -translate-y-1/2 z-30 w-14 h-14 items-center justify-center bg-[#c0392b] text-[#f1efe6] hover:bg-[#00ff00] hover:text-[#050505] transition-all magenta-glow"
             style={{
               clipPath: 'polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%)',
             }}
@@ -453,67 +453,67 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
             {/* LEFT SIDE POP-UP: Slanted Name, Role Title, & Mode-Specific Left Card (4 cols) */}
             <div className="lg:col-span-4 text-left space-y-4 z-20 animate-[fadeSlideRight_0.45s_ease-out] relative">
               <PaintSplatterBadge
-                color="#ff007f"
+                color="#c0392b"
                 className="w-20 h-20 absolute -top-6 -left-6 opacity-65"
               />
 
-              <div className="relative z-10 inline-block px-3 py-1 rounded bg-[#ff007f] text-[#f3efe4] font-sans font-bold text-[11px] uppercase tracking-widest shadow-md">
+              <div className="relative z-10 inline-block px-3 py-1 rounded bg-[#c0392b] text-[#f1efe6] font-sans font-bold text-[11px] uppercase tracking-widest shadow-md">
                 {activeCharacter.status}
               </div>
 
               <div className="relative z-10 -rotate-6 origin-bottom-left py-2">
-                <h2 className="font-arcade text-7xl sm:text-8xl xl:text-[106px] uppercase tracking-wider text-[#00ff33] leading-[0.88] neon-text-glow">
+                <h2 className="font-display text-7xl sm:text-8xl xl:text-[106px] uppercase tracking-wider text-[#00ff00] leading-[0.88] neon-text-glow">
                   {activeCharacter.name}
                 </h2>
-                <p className="mt-2 font-marker text-xl sm:text-2xl xl:text-3xl tracking-wide text-[#ff007f] drop-shadow-[0_3px_8px_rgba(0,0,0,0.95)]">
+                <p className="mt-2 font-display text-xl sm:text-2xl xl:text-3xl tracking-wide text-[#c0392b] drop-shadow-[0_3px_8px_rgba(0,0,0,0.95)]">
                   {activeCharacter.roleTitle}
                 </p>
               </div>
 
               {hudMode === 'stats' ? (
                 /* STATS MODE LEFT CARD: Forensic Role & Threat Classification */
-                <div className="p-4 rounded-2xl glass-dropdown-bar border-l-4 border-l-[#00ff33] space-y-3">
+                <div className="p-4 rounded-2xl glass-dropdown-bar border-l-4 border-l-[#00ff00] space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="font-marker text-sm tracking-wider text-[#00ff33]">
+                    <span className="font-display text-sm tracking-wider text-[#00ff00]">
                       FORENSIC CLASSIFICATION
                     </span>
-                    <ShieldAlert className="w-4 h-4 text-[#ff007f]" />
+                    <ShieldAlert className="w-4 h-4 text-[#c0392b]" />
                   </div>
                   <div className="space-y-1.5 text-xs">
-                    <div className="p-2 rounded-lg bg-[#040705]/70 border border-[#f3efe4]/15">
-                      <span className="block text-[10px] text-[#f3efe4]/60 uppercase">THREAT LEVEL</span>
-                      <span className="font-bold text-[#ff007f]">{activeExtraStats.threatRating}</span>
+                    <div className="p-2 rounded-lg bg-[#050505]/70 border border-[#f1efe6]/15">
+                      <span className="block text-[10px] text-[#f1efe6]/60 uppercase">THREAT LEVEL</span>
+                      <span className="font-bold text-[#c0392b]">{activeExtraStats.threatRating}</span>
                     </div>
-                    <div className="p-2 rounded-lg bg-[#040705]/70 border border-[#f3efe4]/15">
-                      <span className="block text-[10px] text-[#f3efe4]/60 uppercase">CRIME-SCENE ROLE</span>
-                      <span className="font-bold text-[#00ff33]">{activeExtraStats.crimeSceneRole}</span>
+                    <div className="p-2 rounded-lg bg-[#050505]/70 border border-[#f1efe6]/15">
+                      <span className="block text-[10px] text-[#f1efe6]/60 uppercase">CRIME-SCENE ROLE</span>
+                      <span className="font-bold text-[#00ff00]">{activeExtraStats.crimeSceneRole}</span>
                     </div>
-                    <div className="p-2 rounded-lg bg-[#040705]/70 border border-[#f3efe4]/15">
-                      <span className="block text-[10px] text-[#f3efe4]/60 uppercase">LAGOS STATUS</span>
-                      <span className="font-semibold text-[#f3efe4]">{activeExtraStats.lagosStanding}</span>
+                    <div className="p-2 rounded-lg bg-[#050505]/70 border border-[#f1efe6]/15">
+                      <span className="block text-[10px] text-[#f1efe6]/60 uppercase">LAGOS STATUS</span>
+                      <span className="font-semibold text-[#f1efe6]">{activeExtraStats.lagosStanding}</span>
                     </div>
                   </div>
                 </div>
               ) : (
                 /* STORY MODE LEFT CARD: Korede's Room 313 Confession & Novel Quote */
-                <div className="p-4 rounded-2xl glass-dropdown-bar border-l-4 border-l-[#ff007f] space-y-3">
-                  <span className="block font-marker text-sm tracking-wider text-[#ff007f]">
+                <div className="p-4 rounded-2xl glass-dropdown-bar border-l-4 border-l-[#c0392b] space-y-3">
+                  <span className="block font-display text-sm tracking-wider text-[#c0392b]">
                     KOREDE’S CONFESSION // ROOM 313
                   </span>
-                  <p className="font-editorial italic text-lg sm:text-xl text-[#f3efe4] leading-snug">
+                  <p className="font-editorial italic text-lg sm:text-xl text-[#f1efe6] leading-snug">
                     {KOREDE_HANDWRITTEN_NOTES[activeCharacter.id]}
                   </p>
-                  <p className="font-sans text-xs text-[#00ff33] border-t border-[#f3efe4]/15 pt-2">
+                  <p className="font-sans text-xs text-[#00ff00] border-t border-[#f1efe6]/15 pt-2">
                     {activeCharacter.tagline}
                   </p>
                 </div>
               )}
 
               {/* Signature Evidence Prop */}
-              <div className="pt-1 flex items-center gap-3 text-xs text-[#f3efe4]/90">
+              <div className="pt-1 flex items-center gap-3 text-xs text-[#f1efe6]/90">
                 {getCharacterPropIcon(activeCharacter.id)}
                 <div>
-                  <span className="block font-marker text-xs text-[#00ff33] uppercase">SIGNATURE EVIDENCE:</span>
+                  <span className="block font-display text-xs text-[#00ff00] uppercase">SIGNATURE EVIDENCE:</span>
                   <span className="font-bold text-sm">{activeCharacter.signatureItem}</span>
                 </div>
               </div>
@@ -521,7 +521,7 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
 
             {/* CENTER ZOOMED CHARACTER PORTRAIT (4 cols) */}
             <div className="lg:col-span-4 flex flex-col items-center justify-center relative z-10 gap-3">
-              <div className="relative w-72 sm:w-80 md:w-[340px] h-[52vh] sm:h-[60vh] rounded-2xl overflow-hidden border border-[#f3efe4]/40 character-subtle-outline bg-[#040705] transition-all duration-500">
+              <div className="relative w-72 sm:w-80 md:w-[340px] h-[52vh] sm:h-[60vh] rounded-2xl overflow-hidden border border-[#f1efe6]/40 character-subtle-outline bg-[#050505] transition-all duration-500">
                 <img
                   src={CHARACTER_IMAGES[activeCharacter.id]}
                   alt={activeCharacter.name}
@@ -530,17 +530,17 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
                   }`}
                 />
                 {/* Inner Dark Ring & Vignette to keep all 4 edges 100% clean */}
-                <div className="pointer-events-none absolute inset-0 ring-4 ring-inset ring-[#040705] shadow-[inset_0_0_28px_14px_#040705]" />
-                <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#040705] to-transparent pointer-events-none" />
+                <div className="pointer-events-none absolute inset-0 ring-4 ring-inset ring-[#050505] shadow-[inset_0_0_28px_14px_#050505]" />
+                <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#050505] to-transparent pointer-events-none" />
 
                 {/* Active View Badge at Bottom of Portrait */}
                 <div className="absolute bottom-3 inset-x-4 flex items-center justify-between">
-                  <span className="px-2.5 py-0.5 rounded-full bg-[#041d0e]/90 border border-[#00ff33]/50 font-marker text-xs text-[#00ff33]">
+                  <span className="px-2.5 py-0.5 rounded-full bg-[#0a120c]/90 border border-[#00ff00]/50 font-display text-xs text-[#00ff00]">
                     {hudMode === 'stats' ? 'VIEWING: STATS' : 'VIEWING: STORY'}
                   </span>
                   <button
                     onClick={() => handleSwitchHudMode(hudMode === 'stats' ? 'story' : 'stats')}
-                    className="px-2.5 py-0.5 rounded-full bg-[#ff007f] text-[#f3efe4] hover:bg-[#00ff33] hover:text-[#040705] font-sans text-[10px] font-bold uppercase tracking-wider transition-colors"
+                    className="px-2.5 py-0.5 rounded-full bg-[#c0392b] text-[#f1efe6] hover:bg-[#00ff00] hover:text-[#050505] font-sans text-[10px] font-bold uppercase tracking-wider transition-colors"
                   >
                     SWITCH TO {hudMode === 'stats' ? 'STORY' : 'STATS'} &rarr;
                   </button>
@@ -555,13 +555,13 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
                    DEDICATED STATS TAB VIEW
                    ============================================================= */
                 <>
-                  <div className="rounded-2xl glass-dropdown-bar p-5 sm:p-6 space-y-4 relative overflow-hidden border-t-4 border-t-[#ff007f]">
-                    <div className="flex items-center justify-between border-b border-[#f3efe4]/15 pb-2">
-                      <span className="font-marker text-lg text-[#ff007f] tracking-wider flex items-center gap-2">
-                        <BarChart3 className="w-4 h-4 text-[#00ff33]" />
+                  <div className="rounded-2xl glass-dropdown-bar p-5 sm:p-6 space-y-4 relative overflow-hidden border-t-4 border-t-[#c0392b]">
+                    <div className="flex items-center justify-between border-b border-[#f1efe6]/15 pb-2">
+                      <span className="font-display text-lg text-[#c0392b] tracking-wider flex items-center gap-2">
+                        <BarChart3 className="w-4 h-4 text-[#00ff00]" />
                         <span>CHARACTER STATS // ATTRIBUTES</span>
                       </span>
-                      <span className="font-sans text-xs font-bold text-[#00ff33]">
+                      <span className="font-sans text-xs font-bold text-[#00ff00]">
                         [0{selectedIndex + 1} / 05]
                       </span>
                     </div>
@@ -573,24 +573,24 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
                         return (
                           <div key={stat.label} className="space-y-1.5">
                             <div className="flex items-center justify-between">
-                              <span className="font-marker text-lg sm:text-xl tracking-wide uppercase text-[#f3efe4]">
+                              <span className="font-display text-lg sm:text-xl tracking-wide uppercase text-[#f1efe6]">
                                 {stat.label}
                               </span>
                               <span
-                                className={`font-arcade text-2xl tracking-wider ${
-                                  isPinkBar ? 'text-[#ff007f]' : 'text-[#00ff33]'
+                                className={`font-display text-2xl tracking-wider ${
+                                  isPinkBar ? 'text-[#c0392b]' : 'text-[#00ff00]'
                                 }`}
                               >
                                 {stat.value}%
                               </span>
                             </div>
-                            <div className="w-full h-3.5 rounded-full bg-[#041d0e] border border-[#f3efe4]/25 p-0.5 overflow-hidden">
+                            <div className="w-full h-3.5 rounded-full bg-[#0a120c] border border-[#f1efe6]/25 p-0.5 overflow-hidden">
                               <div
                                 style={{ width: `${stat.value}%` }}
                                 className={`h-full rounded-full transition-all duration-700 ${
                                   isPinkBar
-                                    ? 'bg-[#ff007f] shadow-[0_0_12px_#ff007f]'
-                                    : 'bg-[#00ff33] shadow-[0_0_12px_#00ff33]'
+                                    ? 'bg-[#c0392b] shadow-[0_0_12px_#c0392b]'
+                                    : 'bg-[#00ff00] shadow-[0_0_12px_#00ff00]'
                                 }`}
                               />
                             </div>
@@ -601,17 +601,17 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
                       {/* 4th Bonus Stat Bar: Alibi / Cover Strength */}
                       <div className="space-y-1.5 pt-1">
                         <div className="flex items-center justify-between">
-                          <span className="font-marker text-lg sm:text-xl tracking-wide uppercase text-[#f3efe4]">
+                          <span className="font-display text-lg sm:text-xl tracking-wide uppercase text-[#f1efe6]">
                             ALIBI / COVER STRENGTH
                           </span>
-                          <span className="font-arcade text-2xl tracking-wider text-[#ff007f]">
+                          <span className="font-display text-2xl tracking-wider text-[#c0392b]">
                             {activeExtraStats.alibiStrength}%
                           </span>
                         </div>
-                        <div className="w-full h-3.5 rounded-full bg-[#041d0e] border border-[#f3efe4]/25 p-0.5 overflow-hidden">
+                        <div className="w-full h-3.5 rounded-full bg-[#0a120c] border border-[#f1efe6]/25 p-0.5 overflow-hidden">
                           <div
                             style={{ width: `${activeExtraStats.alibiStrength}%` }}
-                            className="h-full rounded-full transition-all duration-700 bg-gradient-to-r from-[#ff007f] to-[#00ff33]"
+                            className="h-full rounded-full transition-all duration-700 bg-gradient-to-r from-[#c0392b] to-[#00ff00]"
                           />
                         </div>
                       </div>
@@ -619,16 +619,16 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
                   </div>
 
                   {/* Psychological Profile Summary Box */}
-                  <div className="rounded-2xl glass-dropdown-bar p-5 space-y-2 border-l-4 border-l-[#00ff33]">
-                    <span className="font-marker text-sm tracking-wider text-[#00ff33] block">
+                  <div className="rounded-2xl glass-dropdown-bar p-5 space-y-2 border-l-4 border-l-[#00ff00]">
+                    <span className="font-display text-sm tracking-wider text-[#00ff00] block">
                       PSYCHOLOGICAL ASSESSMENT
                     </span>
-                    <p className="font-sans text-xs sm:text-sm text-[#f3efe4]/90 leading-relaxed">
+                    <p className="font-sans text-xs sm:text-sm text-[#f1efe6]/90 leading-relaxed">
                       {activeExtraStats.psychologicalProfile}
                     </p>
                     <button
                       onClick={() => handleSwitchHudMode('story')}
-                      className="mt-2 inline-flex items-center gap-1.5 font-marker text-sm text-[#ff007f] hover:text-[#00ff33] transition-colors"
+                      className="mt-2 inline-flex items-center gap-1.5 font-display text-sm text-[#c0392b] hover:text-[#00ff00] transition-colors"
                     >
                       <span>OPEN CHARACTER STORY &amp; BIO SLOT &rarr;</span>
                     </button>
@@ -640,31 +640,31 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
                    ============================================================= */
                 <>
                   {/* `<main character intros>` Bio Card */}
-                  <div className="rounded-2xl glass-dropdown-bar p-5 sm:p-6 space-y-3 relative overflow-hidden border-t-4 border-t-[#00ff33]">
-                    <div className="flex items-center justify-between text-xs text-[#00ff33] border-b border-[#f3efe4]/15 pb-2">
-                      <span className="font-marker text-base flex items-center gap-1.5">
-                        <Sparkles className="w-4 h-4 text-[#ff007f]" />
+                  <div className="rounded-2xl glass-dropdown-bar p-5 sm:p-6 space-y-3 relative overflow-hidden border-t-4 border-t-[#00ff00]">
+                    <div className="flex items-center justify-between text-xs text-[#00ff00] border-b border-[#f1efe6]/15 pb-2">
+                      <span className="font-display text-base flex items-center gap-1.5">
+                        <Sparkles className="w-4 h-4 text-[#c0392b]" />
                         <span>CHARACTER STORY // BIO SLOT</span>
                       </span>
-                      <span className="text-[#ff007f] font-bold">[DOSSIER 0{selectedIndex + 1}]</span>
+                      <span className="text-[#c0392b] font-bold">[DOSSIER 0{selectedIndex + 1}]</span>
                     </div>
-                    <div className="p-3.5 rounded-xl bg-[#040705]/75 border-l-4 border-[#ff007f] font-sans text-sm sm:text-base text-[#f3efe4] leading-relaxed">
+                    <div className="p-3.5 rounded-xl bg-[#050505]/75 border-l-4 border-[#c0392b] font-sans text-sm sm:text-base text-[#f1efe6] leading-relaxed">
                       {activeCharacter.bio}
                     </div>
-                    <span className="block text-[11px] text-[#f3efe4]/60">
-                      Editable in <code className="text-[#00ff33]">src/data/contentSlots.ts</code>
+                    <span className="block text-[11px] text-[#f1efe6]/60">
+                      Editable in <code className="text-[#00ff00]">src/data/contentSlots.ts</code>
                     </span>
                   </div>
 
                   {/* Key Novel Story Arc Beats */}
-                  <div className="rounded-2xl glass-dropdown-bar p-5 space-y-3 border-l-4 border-l-[#ff007f]">
-                    <span className="font-marker text-base tracking-wider text-[#ff007f] block">
+                  <div className="rounded-2xl glass-dropdown-bar p-5 space-y-3 border-l-4 border-l-[#c0392b]">
+                    <span className="font-display text-base tracking-wider text-[#c0392b] block">
                       KEY NOVEL MOMENTS // LAGOS ARC
                     </span>
                     <ul className="space-y-2">
                       {activeStoryBeats.map((beat, bIdx) => (
-                        <li key={bIdx} className="flex items-start gap-2.5 font-sans text-xs sm:text-sm text-[#f3efe4]/90">
-                          <span className="w-5 h-5 rounded-full bg-[#00ff33] text-[#040705] font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">
+                        <li key={bIdx} className="flex items-start gap-2.5 font-sans text-xs sm:text-sm text-[#f1efe6]/90">
+                          <span className="w-5 h-5 rounded-full bg-[#00ff00] text-[#050505] font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">
                             {bIdx + 1}
                           </span>
                           <span>{beat}</span>
@@ -681,7 +681,7 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
           <div className="relative z-20 max-w-4xl mx-auto w-full pt-4 flex items-center justify-center gap-3">
             <button
               onClick={handlePrev}
-              className="p-2.5 rounded-lg bg-[#041d0e] border border-[#f3efe4]/25 text-[#f3efe4] hover:text-[#ff007f] hover:border-[#ff007f] transition-all"
+              className="p-2.5 rounded-lg bg-[#0a120c] border border-[#f1efe6]/25 text-[#f1efe6] hover:text-[#c0392b] hover:border-[#c0392b] transition-all"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
@@ -693,10 +693,10 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
                   <button
                     key={item.id}
                     onClick={() => handleSelectCharacter(idx, hudMode)}
-                    className={`relative w-14 h-14 sm:w-16 sm:h-16 rounded-lg overflow-hidden border transition-all shrink-0 bg-[#040705] ${
+                    className={`relative w-14 h-14 sm:w-16 sm:h-16 rounded-lg overflow-hidden border transition-all shrink-0 bg-[#050505] ${
                       active
-                        ? 'border-[#ff007f] scale-110 magenta-glow'
-                        : 'border-[#f3efe4]/25 opacity-65 hover:opacity-100 hover:border-[#f3efe4]/55'
+                        ? 'border-[#c0392b] scale-110 magenta-glow'
+                        : 'border-[#f1efe6]/25 opacity-65 hover:opacity-100 hover:border-[#f1efe6]/55'
                     }`}
                   >
                     <img
@@ -706,8 +706,8 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
                         item.id === 'ayoola' ? 'object-center scale-[1.18]' : 'object-top scale-105'
                       }`}
                     />
-                    <div className="pointer-events-none absolute inset-0 ring-2 ring-inset ring-[#040705]" />
-                    <div className="absolute inset-x-0 bottom-0 bg-black/85 font-sans font-bold text-[8px] text-center text-[#f3efe4] py-0.5 truncate">
+                    <div className="pointer-events-none absolute inset-0 ring-2 ring-inset ring-[#050505]" />
+                    <div className="absolute inset-x-0 bottom-0 bg-black/85 font-sans font-bold text-[8px] text-center text-[#f1efe6] py-0.5 truncate">
                       {item.name}
                     </div>
                   </button>
@@ -717,7 +717,7 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
 
             <button
               onClick={handleNext}
-              className="p-2.5 rounded-lg bg-[#041d0e] border border-[#f3efe4]/25 text-[#f3efe4] hover:text-[#ff007f] hover:border-[#ff007f] transition-all"
+              className="p-2.5 rounded-lg bg-[#0a120c] border border-[#f1efe6]/25 text-[#f1efe6] hover:text-[#c0392b] hover:border-[#c0392b] transition-all"
             >
               <ChevronRight className="w-5 h-5" />
             </button>

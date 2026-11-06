@@ -33,7 +33,7 @@ export const VinylEasterEgg: React.FC = () => {
     const dist = 28 + Math.random() * 20;
     const tx = `${Math.round(Math.sin(angle) * dist)}px`;
     const ty = `${Math.round(-Math.cos(angle) * dist - 10)}px`;
-    const color = id % 2 === 0 ? '#00ff33' : '#ff007f';
+    const color = id % 2 === 0 ? '#00ff00' : '#c0392b';
 
     setNotes((prev) => [...prev.slice(-6), { id, symbol, tx, ty, color }]);
   };
@@ -123,7 +123,7 @@ export const VinylEasterEgg: React.FC = () => {
                 color: n.color,
               } as React.CSSProperties
             }
-            className="animate-music-note absolute left-1/2 top-1/2 font-mono text-sm font-bold drop-shadow-[0_0_8px_rgba(0,255,51,0.8)] select-none"
+            className="animate-music-note absolute left-1/2 top-1/2 font-mono text-sm font-bold drop-shadow-[0_0_8px_rgba(0, 255, 0,0.8)] select-none"
           >
             {n.symbol}
           </span>
@@ -136,8 +136,8 @@ export const VinylEasterEgg: React.FC = () => {
         aria-label="Spin vinyl record"
         className={`relative w-11 h-11 rounded-full flex items-center justify-center transition-transform duration-300 hover:scale-110 focus:outline-none ${
           isPlaying
-            ? 'shadow-[0_0_20px_rgba(255,0,127,0.65)]'
-            : 'shadow-[0_4px_14px_rgba(0,0,0,0.85)] hover:shadow-[0_0_16px_rgba(0,255,51,0.45)]'
+            ? 'shadow-[0_0_20px_rgba(192, 57, 43,0.65)]'
+            : 'shadow-[0_4px_14px_rgba(0,0,0,0.85)] hover:shadow-[0_0_16px_rgba(0, 255, 0,0.45)]'
         }`}
       >
         <svg
@@ -145,7 +145,7 @@ export const VinylEasterEgg: React.FC = () => {
           className={`w-full h-full rounded-full ${isPlaying ? 'animate-vinyl-spin' : ''}`}
         >
           {/* Outer Dark Vinyl Base */}
-          <circle cx="50" cy="50" r="48" fill="#040705" stroke="#f3efe4" strokeOpacity="0.4" strokeWidth="2" />
+          <circle cx="50" cy="50" r="48" fill="#050505" stroke="#f1efe6" strokeOpacity="0.4" strokeWidth="2" />
 
           {/* Concentric Vinyl Grooves */}
           <circle cx="50" cy="50" r="41" fill="none" stroke="#1d3526" strokeWidth="1" strokeDasharray="18 6" />
@@ -167,8 +167,8 @@ export const VinylEasterEgg: React.FC = () => {
             cx="50"
             cy="50"
             r="17"
-            fill={isPlaying ? '#ff007f' : '#00ff33'}
-            stroke="#040705"
+            fill={isPlaying ? '#c0392b' : '#00ff00'}
+            stroke="#050505"
             strokeWidth="2"
           />
           <circle
@@ -176,29 +176,29 @@ export const VinylEasterEgg: React.FC = () => {
             cy="50"
             r="12"
             fill="none"
-            stroke="#040705"
+            stroke="#050505"
             strokeWidth="1"
             strokeDasharray="6 4"
           />
 
           {/* Center Spindle Hole */}
-          <circle cx="50" cy="50" r="4" fill="#040705" stroke="#f3efe4" strokeWidth="1" />
+          <circle cx="50" cy="50" r="4" fill="#050505" stroke="#f1efe6" strokeWidth="1" />
         </svg>
       </button>
 
       {/* Song Name Popup — Anchored right-0 so it never clips off the screen, fades off after 2 seconds */}
       <div
-        className={`pointer-events-none absolute top-13 right-0 mt-2 z-50 whitespace-nowrap rounded-xl border border-[#ff007f]/60 bg-[#041d0e]/95 px-3.5 py-2 backdrop-blur-xl shadow-[0_12px_28px_rgba(0,0,0,0.85)] transition-all duration-300 ${
+        className={`pointer-events-none absolute top-13 right-0 mt-2 z-50 whitespace-nowrap rounded-xl border border-[#c0392b]/60 bg-[#0a120c]/95 px-3.5 py-2 backdrop-blur-xl shadow-[0_12px_28px_rgba(0,0,0,0.85)] transition-all duration-300 ${
           showSongBadge
             ? 'opacity-100 translate-y-0 scale-100'
             : 'opacity-0 -translate-y-2 scale-95'
         }`}
       >
         <div className="flex items-center gap-2 font-mono text-[11px]">
-          <span className="inline-block w-2 h-2 rounded-full bg-[#ff007f] animate-ping" />
-          <span className="text-[#00ff33] font-bold">Whitney Houston</span>
-          <span className="text-[#f3efe4]/50">—</span>
-          <span className="text-[#f3efe4] italic">I Wanna Dance with Somebody</span>
+          <span className="inline-block w-2 h-2 rounded-full bg-[#c0392b] animate-ping" />
+          <span className="text-[#00ff00] font-bold">Whitney Houston</span>
+          <span className="text-[#f1efe6]/50">—</span>
+          <span className="text-[#f1efe6] italic">I Wanna Dance with Somebody</span>
         </div>
       </div>
     </div>
