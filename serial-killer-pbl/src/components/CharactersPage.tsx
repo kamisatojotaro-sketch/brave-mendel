@@ -32,7 +32,6 @@ const LINEUP_SUBTITLES: Record<string, string> = {
   femi: 'Poet // Victim #03',
 };
 
-// Story-authentic confession notes from Korede's perspective
 const KOREDE_HANDWRITTEN_NOTES: Record<string, string> = {
   korede: '“I know the exact ratio of lemon to bleach for bathroom tiles...”',
   ayoola: '“She posted a Snapchat right after Femi stopped breathing.”',
@@ -41,7 +40,6 @@ const KOREDE_HANDWRITTEN_NOTES: Record<string, string> = {
   mother: '“As long as a rich suitor calls, she never asks where the last one went.”',
 };
 
-// Extra forensic & psychological breakdown metrics for the dedicated STATS tab
 const CHARACTER_EXTRA_STATS: Record<
   string,
   {
@@ -94,7 +92,6 @@ const CHARACTER_EXTRA_STATS: Record<
   },
 };
 
-// Key novel story beats for the dedicated STORY tab
 const CHARACTER_STORY_BEATS: Record<string, string[]> = {
   korede: [
     'Answers Ayoola’s midnight call (“Korede, I killed him”) and scrubs Femi’s bathroom with lemon and bleach.',
@@ -130,7 +127,7 @@ export type HudMode = 'select' | 'stats' | 'story';
 
 export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) => {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
-  const [lastViewedIndex, setLastViewedIndex] = useState<number>(1); // Default to Ayoola (index 1)
+  const [lastViewedIndex, setLastViewedIndex] = useState<number>(1);
   const [hudMode, setHudMode] = useState<HudMode>('select');
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [isGlitching, setIsGlitching] = useState(false);
@@ -138,19 +135,18 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
   const touchStartX = useRef<number | null>(null);
   const touchEndX = useRef<number | null>(null);
 
-  // Clicking a character from the lineup zooms into them (defaults to STATS view with full access to STORY)
   const handleSelectCharacter = useCallback((idx: number, targetMode: HudMode = 'stats') => {
     soundFX.playDramaticPulse();
     setIsGlitching(true);
     setSelectedIndex(idx);
     setLastViewedIndex(idx);
     setHudMode(targetMode === 'select' ? 'stats' : targetMode);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     window.setTimeout(() => {
       setIsGlitching(false);
     }, 340);
   }, []);
 
-  // Clicking SELECT / STATS / STORY in the top-right bar switches the entire stage mode
   const handleSwitchHudMode = (mode: HudMode) => {
     soundFX.playGlitchSwitch();
     setIsGlitching(true);
@@ -216,8 +212,8 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
   const handleTouchEnd = () => {
     if (touchStartX.current === null || touchEndX.current === null) return;
     const dist = touchStartX.current - touchEndX.current;
-    if (dist > 45) handleNext();
-    else if (dist < -45) handlePrev();
+    if (dist > 55) handleNext();
+    else if (dist < -55) handlePrev();
     touchStartX.current = null;
     touchEndX.current = null;
   };
@@ -225,15 +221,15 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
   const getCharacterPropIcon = (id: string) => {
     switch (id) {
       case 'korede':
-        return <BleachBottleProp className="w-14 h-14 shrink-0" />;
+        return <BleachBottleProp className="w-12 h-12 sm:w-14 sm:h-14 shrink-0" />;
       case 'ayoola':
-        return <HuntingKnifeProp className="w-14 h-14 shrink-0" />;
+        return <HuntingKnifeProp className="w-12 h-12 sm:w-14 sm:h-14 shrink-0" />;
       case 'tade':
-        return <RubberGlovesProp className="w-14 h-14 shrink-0" />;
+        return <RubberGlovesProp className="w-12 h-12 sm:w-14 sm:h-14 shrink-0" />;
       case 'mother':
-        return <CrimsonSunglassesProp className="w-20 h-10 shrink-0" />;
+        return <CrimsonSunglassesProp className="w-16 h-9 sm:w-20 sm:h-10 shrink-0" />;
       default:
-        return <BloodyClothProp className="w-14 h-14 shrink-0" />;
+        return <BloodyClothProp className="w-12 h-12 sm:w-14 sm:h-14 shrink-0" />;
     }
   };
 
@@ -246,7 +242,7 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
-      className="relative min-h-screen w-full overflow-x-hidden select-none flex flex-col justify-between pb-8"
+      className="relative min-h-screen w-full overflow-x-hidden select-none flex flex-col justify-between pb-6 sm:pb-8"
     >
       {/* Floating Decorative Murder Props in Background Corners */}
       <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
@@ -262,15 +258,15 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
       </div>
 
       {/* Top Navigation Bar + Always-Active SELECT / STATS / STORY Switcher */}
-      <div className="relative z-30 w-full px-6 sm:px-10 pt-24 pb-3 flex flex-wrap items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
+      <div className="relative z-30 w-full px-3 sm:px-10 pt-16 sm:pt-24 pb-2 sm:pb-3 flex flex-wrap items-center justify-between gap-2.5 sm:gap-4">
+        <div className="flex items-center gap-2">
           {selectedIndex !== null ? (
             <button
               onClick={() => handleSwitchHudMode('select')}
-              className="px-4 py-1.5 rounded-full bg-[#c0392b] text-[#f1efe6] hover:bg-[#00ff00] hover:text-[#050505] font-sans text-xs font-bold uppercase tracking-widest transition-all flex items-center gap-2 magenta-glow"
+              className="px-3 sm:px-4 py-1.5 rounded-full bg-[#c0392b] text-[#f1efe6] hover:bg-[#00ff00] hover:text-[#050505] active:scale-95 font-sans text-[11px] sm:text-xs font-bold uppercase tracking-wider sm:tracking-widest transition-all flex items-center gap-1.5 magenta-glow"
             >
               <Grid className="w-3.5 h-3.5" />
-              <span>BACK TO ALL CHARACTERS</span>
+              <span>ALL CHARACTERS</span>
             </button>
           ) : (
             <button
@@ -278,68 +274,69 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
                 soundFX.playHoverTick(500);
                 onNavigate('home');
               }}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0a120c]/85 border border-[#f1efe6]/25 font-sans text-xs font-bold text-[#f1efe6] hover:border-[#c0392b] hover:text-[#c0392b] transition-colors uppercase tracking-widest"
+              className="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full bg-[#0a120c]/90 border border-[#f1efe6]/25 font-sans text-[11px] sm:text-xs font-bold text-[#f1efe6] hover:border-[#c0392b] hover:text-[#c0392b] active:scale-95 transition-all uppercase tracking-wider sm:tracking-widest"
             >
-              <ArrowLeft className="w-4 h-4 text-[#00ff00]" />
-              <span>BACK TO HARDCOVER</span>
+              <ArrowLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#00ff00]" />
+              <span>BACK TO BOOK</span>
             </button>
           )}
         </div>
 
-        {/* Interactive SELECT / STATS / STORY Mode Switcher */}
-        <div className="flex items-center gap-2 sm:gap-3 bg-[#0a120c]/90 border border-[#f1efe6]/25 rounded-full px-3 py-1.5 backdrop-blur-md shadow-lg">
+        {/* Interactive SELECT / STATS / STORY Mode Switcher (Fits cleanly on mobile & desktop) */}
+        <div className="flex items-center gap-1 sm:gap-2.5 bg-[#0a120c]/95 border border-[#f1efe6]/25 rounded-full px-2 sm:px-3 py-1 backdrop-blur-md shadow-lg">
           <button
             onClick={() => handleSwitchHudMode('select')}
-            className={`px-3.5 py-1 rounded-full font-display text-lg sm:text-xl tracking-wider uppercase transition-all flex items-center gap-1.5 ${
+            className={`px-2.5 sm:px-3.5 py-1 rounded-full font-display text-sm sm:text-xl tracking-wider uppercase transition-all flex items-center gap-1 ${
               hudMode === 'select'
-                ? 'bg-[#00ff00] text-[#050505] shadow-[0_0_14px_rgba(0, 255, 0,0.6)] scale-105 -rotate-2'
+                ? 'bg-[#00ff00] text-[#050505] shadow-[0_0_12px_rgba(0,255,0,0.6)] scale-105'
                 : 'text-[#f1efe6]/80 hover:text-[#00ff00]'
             }`}
           >
-            <Grid className="w-4 h-4" />
+            <Grid className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             <span>SELECT</span>
           </button>
 
           <button
             onClick={() => handleSwitchHudMode('stats')}
-            className={`px-3.5 py-1 rounded-full font-display text-lg sm:text-xl tracking-wider uppercase transition-all flex items-center gap-1.5 ${
+            className={`px-2.5 sm:px-3.5 py-1 rounded-full font-display text-sm sm:text-xl tracking-wider uppercase transition-all flex items-center gap-1 ${
               hudMode === 'stats'
-                ? 'bg-[#c0392b] text-[#f1efe6] shadow-[0_0_14px_rgba(192, 57, 43,0.65)] scale-105 -rotate-2'
+                ? 'bg-[#c0392b] text-[#f1efe6] shadow-[0_0_12px_rgba(192,57,43,0.65)] scale-105'
                 : 'text-[#f1efe6]/80 hover:text-[#c0392b]'
             }`}
           >
-            <BarChart3 className="w-4 h-4" />
+            <BarChart3 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             <span>STATS</span>
           </button>
 
           <button
             onClick={() => handleSwitchHudMode('story')}
-            className={`px-3.5 py-1 rounded-full font-display text-lg sm:text-xl tracking-wider uppercase transition-all flex items-center gap-1.5 ${
+            className={`px-2.5 sm:px-3.5 py-1 rounded-full font-display text-sm sm:text-xl tracking-wider uppercase transition-all flex items-center gap-1 ${
               hudMode === 'story'
-                ? 'bg-[#00ff00] text-[#050505] shadow-[0_0_14px_rgba(0, 255, 0,0.6)] scale-105 -rotate-2'
+                ? 'bg-[#00ff00] text-[#050505] shadow-[0_0_12px_rgba(0,255,0,0.6)] scale-105'
                 : 'text-[#f1efe6]/80 hover:text-[#00ff00]'
             }`}
           >
-            <BookOpen className="w-4 h-4" />
+            <BookOpen className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             <span>STORY</span>
           </button>
         </div>
       </div>
 
       {/* =====================================================================
-          MODE 1 (`SELECT`): FULL-SCREEN 5-CHARACTER LINEUP STAGE
-          - No "CLICK TO ZOOM IN" text anywhere
-          - Subtle, refined hover outline (`border-[#f1efe6]/45` + gentle lift)
-          - Ayoola's white border artifact completely cropped & vignette-masked
+          MODE 1 (`SELECT`): 5-CHARACTER LINEUP STAGE
+          - On Mobile: 2-column compact grid so all 5 characters fit comfortably without endless scrolling!
+          - On Desktop (`lg:grid-cols-5`): Full-height vertical lineup stage!
          ===================================================================== */}
       {selectedIndex === null && (
         <div className="relative z-20 flex-1 w-full flex flex-col justify-end pt-2">
-          <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 items-end px-4 sm:px-8 pb-4 gap-4">
-            {LINEUP_ORDER.map((slotIdx) => {
+          <div className="w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 items-end px-3 sm:px-8 pb-4 gap-3 sm:gap-4">
+            {LINEUP_ORDER.map((slotIdx, renderPos) => {
               const char = CHARACTER_SLOTS[slotIdx];
               const isHovered = hoveredIndex === slotIdx;
               const isSomeoneElseHovered = hoveredIndex !== null && hoveredIndex !== slotIdx;
               const isAyoola = char.id === 'ayoola';
+              // On 2-column mobile grid, let the first card (Ayoola) span 2 columns or the 5th card span 2 columns so the grid is symmetrical
+              const isLastOddCardOnMobile = renderPos === 4;
 
               return (
                 <div
@@ -350,11 +347,13 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
                   }}
                   onMouseLeave={() => setHoveredIndex(null)}
                   onClick={() => handleSelectCharacter(slotIdx, 'stats')}
-                  className={`group relative cursor-pointer h-[68vh] min-h-[420px] sm:h-[75vh] flex flex-col justify-end items-center transition-all duration-500 ease-out rounded-2xl ${
+                  className={`group relative cursor-pointer h-[250px] sm:h-[360px] lg:h-[74vh] flex flex-col justify-end items-center transition-all duration-500 ease-out rounded-2xl active:scale-95 ${
+                    isLastOddCardOnMobile ? 'col-span-2 sm:col-span-1 max-w-[240px] sm:max-w-none mx-auto w-full' : 'w-full'
+                  } ${
                     isHovered
-                      ? '-translate-y-2.5 scale-[1.02] z-30 character-subtle-outline'
+                      ? 'lg:-translate-y-2.5 lg:scale-[1.02] z-30 character-subtle-outline'
                       : isSomeoneElseHovered
-                      ? 'opacity-65 scale-[0.985] z-10'
+                      ? 'lg:opacity-65 lg:scale-[0.985] z-10'
                       : 'z-10'
                   }`}
                 >
@@ -381,15 +380,15 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
                     />
 
                     {/* All-Sides Dark Frame + Vignette Mask */}
-                    <div className="pointer-events-none absolute inset-0 ring-4 ring-inset ring-[#050505] shadow-[inset_0_0_28px_14px_#050505]" />
+                    <div className="pointer-events-none absolute inset-0 ring-4 ring-inset ring-[#050505] shadow-[inset_0_0_24px_10px_#050505]" />
 
-                    {/* Bottom Dark Emerald & Noir Gradient for Name Readability */}
-                    <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#050505] via-[#0a120c]/80 to-transparent pointer-events-none" />
+                    {/* Bottom Dark Gradient for Name Readability */}
+                    <div className="absolute inset-x-0 bottom-0 h-3/5 bg-gradient-to-t from-[#050505] via-[#0a120c]/80 to-transparent pointer-events-none" />
 
                     {/* Stylized Slanted Character Name & Subtitle */}
-                    <div className="absolute inset-x-3 bottom-6 text-center pointer-events-none transition-transform duration-500 group-hover:-translate-y-1.5">
+                    <div className="absolute inset-x-2 bottom-3 sm:bottom-6 text-center pointer-events-none transition-transform duration-500 group-hover:-translate-y-1.5">
                       <h3
-                        className={`font-display text-5xl sm:text-6xl uppercase tracking-wider leading-none -rotate-3 transition-colors duration-300 ${
+                        className={`font-display text-3xl sm:text-5xl lg:text-6xl uppercase tracking-wider leading-none -rotate-3 transition-colors duration-300 ${
                           isHovered
                             ? 'text-[#00ff00] neon-text-glow'
                             : 'text-[#f1efe6] drop-shadow-[0_4px_10px_rgba(0,0,0,0.95)]'
@@ -398,7 +397,7 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
                         {char.name}
                       </h3>
                       <p
-                        className={`mt-1.5 font-display text-xs sm:text-sm tracking-wide -rotate-3 transition-colors ${
+                        className={`mt-1 font-display text-[11px] sm:text-sm tracking-wide -rotate-3 transition-colors ${
                           isHovered ? 'text-[#c0392b]' : 'text-[#f1efe6]/80'
                         }`}
                       >
@@ -411,7 +410,7 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
             })}
           </div>
 
-          <BotanicalLagoonFooter className="h-20 sm:h-24 -mb-6 opacity-90" />
+          <BotanicalLagoonFooter className="h-16 sm:h-24 -mb-4 sm:-mb-6 opacity-90" />
         </div>
       )}
 
@@ -420,11 +419,11 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
          ===================================================================== */}
       {selectedIndex !== null && activeCharacter && activeExtraStats && (
         <div
-          className={`relative z-20 flex-1 w-full max-w-7xl mx-auto px-4 sm:px-10 flex flex-col justify-between pb-4 ${
+          className={`relative z-20 flex-1 w-full max-w-7xl mx-auto px-3 sm:px-10 flex flex-col justify-between pb-4 ${
             isGlitching ? 'animate-glitch' : ''
           }`}
         >
-          {/* Left Hexagonal Arrow Button */}
+          {/* Left Hexagonal Arrow Button (Desktop) */}
           <button
             onClick={handlePrev}
             aria-label="Previous Character"
@@ -436,7 +435,7 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
             <ChevronLeft className="w-8 h-8 stroke-[3]" />
           </button>
 
-          {/* Right Hexagonal Arrow Button */}
+          {/* Right Hexagonal Arrow Button (Desktop) */}
           <button
             onClick={handleNext}
             aria-label="Next Character"
@@ -448,26 +447,70 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
             <ChevronRight className="w-8 h-8 stroke-[3]" />
           </button>
 
-          {/* 3-Column GTA + Book-Cover Pop-Art Character Stage */}
-          <div className="my-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            {/* LEFT SIDE POP-UP: Slanted Name, Role Title, & Mode-Specific Left Card (4 cols) */}
-            <div className="lg:col-span-4 text-left space-y-4 z-20 animate-[fadeSlideRight_0.45s_ease-out] relative">
+          {/* Mobile Quick Character Switcher Bar (Visible on Mobile/Tablet right above the character so users don't have to scroll to the bottom!) */}
+          <div className="flex lg:hidden items-center justify-between gap-2 py-2 mb-2 border-b border-[#f1efe6]/15">
+            <button
+              onClick={handlePrev}
+              className="p-2 rounded-lg bg-[#0a120c] border border-[#f1efe6]/25 text-[#f1efe6] active:scale-95"
+              aria-label="Previous character"
+            >
+              <ChevronLeft className="w-4 h-4 text-[#00ff00]" />
+            </button>
+
+            <div className="flex items-center gap-1.5 overflow-x-auto py-1">
+              {CHARACTER_SLOTS.map((item, idx) => {
+                const active = idx === selectedIndex;
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => handleSelectCharacter(idx, hudMode)}
+                    className={`px-2.5 py-1 rounded-full font-display text-xs uppercase tracking-wider transition-all shrink-0 ${
+                      active
+                        ? 'bg-[#c0392b] text-[#f1efe6] font-bold shadow-[0_0_10px_rgba(192,57,43,0.6)]'
+                        : 'bg-[#0a120c] text-[#f1efe6]/70 border border-[#f1efe6]/15'
+                    }`}
+                  >
+                    {item.name}
+                  </button>
+                );
+              })}
+            </div>
+
+            <button
+              onClick={handleNext}
+              className="p-2 rounded-lg bg-[#0a120c] border border-[#f1efe6]/25 text-[#f1efe6] active:scale-95"
+              aria-label="Next character"
+            >
+              <ChevronRight className="w-4 h-4 text-[#00ff00]" />
+            </button>
+          </div>
+
+          {/* 3-Column GTA + Book-Cover Character Stage
+              On mobile, Portrait + Name Header is ordered FIRST (order-1),
+              Active STATS/STORY panel is ordered SECOND (order-2),
+              and Secondary Forensic/Confession Card is ordered THIRD (order-3)! */}
+          <div className="my-auto grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-8 items-center">
+            {/* LEFT SIDE POP-UP (Desktop Col 1 / Mobile Order 3) */}
+            <div className="order-3 lg:order-1 lg:col-span-4 text-left space-y-4 z-20 animate-[fadeSlideRight_0.45s_ease-out] relative">
               <PaintSplatterBadge
                 color="#c0392b"
-                className="w-20 h-20 absolute -top-6 -left-6 opacity-65"
+                className="hidden lg:block w-20 h-20 absolute -top-6 -left-6 opacity-65"
               />
 
-              <div className="relative z-10 inline-block px-3 py-1 rounded bg-[#c0392b] text-[#f1efe6] font-sans font-bold text-[11px] uppercase tracking-widest shadow-md">
-                {activeCharacter.status}
-              </div>
+              {/* Desktop Name & Role Header (Hidden on mobile because mobile shows it right beside/over the portrait in order-1) */}
+              <div className="hidden lg:block">
+                <div className="relative z-10 inline-block px-3 py-1 rounded bg-[#c0392b] text-[#f1efe6] font-sans font-bold text-[11px] uppercase tracking-widest shadow-md">
+                  {activeCharacter.status}
+                </div>
 
-              <div className="relative z-10 -rotate-6 origin-bottom-left py-2">
-                <h2 className="font-display text-7xl sm:text-8xl xl:text-[106px] uppercase tracking-wider text-[#00ff00] leading-[0.88] neon-text-glow">
-                  {activeCharacter.name}
-                </h2>
-                <p className="mt-2 font-display text-xl sm:text-2xl xl:text-3xl tracking-wide text-[#c0392b] drop-shadow-[0_3px_8px_rgba(0,0,0,0.95)]">
-                  {activeCharacter.roleTitle}
-                </p>
+                <div className="relative z-10 -rotate-6 origin-bottom-left py-2">
+                  <h2 className="font-display text-7xl sm:text-8xl xl:text-[106px] uppercase tracking-wider text-[#00ff00] leading-[0.88] neon-text-glow">
+                    {activeCharacter.name}
+                  </h2>
+                  <p className="mt-2 font-display text-xl sm:text-2xl xl:text-3xl tracking-wide text-[#c0392b] drop-shadow-[0_3px_8px_rgba(0,0,0,0.95)]">
+                    {activeCharacter.roleTitle}
+                  </p>
+                </div>
               </div>
 
               {hudMode === 'stats' ? (
@@ -500,7 +543,7 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
                   <span className="block font-display text-sm tracking-wider text-[#c0392b]">
                     KOREDE’S CONFESSION // ROOM 313
                   </span>
-                  <p className="font-editorial italic text-lg sm:text-xl text-[#f1efe6] leading-snug">
+                  <p className="font-editorial italic text-base sm:text-xl text-[#f1efe6] leading-snug">
                     {KOREDE_HANDWRITTEN_NOTES[activeCharacter.id]}
                   </p>
                   <p className="font-sans text-xs text-[#00ff00] border-t border-[#f1efe6]/15 pt-2">
@@ -519,9 +562,25 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
               </div>
             </div>
 
-            {/* CENTER ZOOMED CHARACTER PORTRAIT (4 cols) */}
-            <div className="lg:col-span-4 flex flex-col items-center justify-center relative z-10 gap-3">
-              <div className="relative w-72 sm:w-80 md:w-[340px] h-[52vh] sm:h-[60vh] rounded-2xl overflow-hidden border border-[#f1efe6]/40 character-subtle-outline bg-[#050505] transition-all duration-500">
+            {/* CENTER ZOOMED CHARACTER PORTRAIT (Desktop Col 2 / Mobile Order 1) */}
+            <div className="order-1 lg:order-2 lg:col-span-4 flex flex-col items-center justify-center relative z-10 gap-3">
+              {/* Mobile Compact Name & Role Banner right above Portrait */}
+              <div className="lg:hidden w-full flex items-end justify-between px-1">
+                <div>
+                  <span className="inline-block px-2 py-0.5 rounded bg-[#c0392b] text-[#f1efe6] font-sans font-bold text-[9px] uppercase tracking-widest mb-1">
+                    {activeCharacter.status}
+                  </span>
+                  <h2 className="font-display text-5xl uppercase tracking-wider text-[#00ff00] leading-none neon-text-glow">
+                    {activeCharacter.name}
+                  </h2>
+                  <p className="font-display text-sm tracking-wide text-[#f1efe6]/90 mt-0.5">
+                    {activeCharacter.roleTitle}
+                  </p>
+                </div>
+                {getCharacterPropIcon(activeCharacter.id)}
+              </div>
+
+              <div className="relative w-full max-w-[300px] sm:max-w-[340px] h-[340px] sm:h-[56vh] rounded-2xl overflow-hidden border border-[#f1efe6]/40 character-subtle-outline bg-[#050505] transition-all duration-500">
                 <img
                   src={CHARACTER_IMAGES[activeCharacter.id]}
                   alt={activeCharacter.name}
@@ -534,13 +593,13 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
                 <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#050505] to-transparent pointer-events-none" />
 
                 {/* Active View Badge at Bottom of Portrait */}
-                <div className="absolute bottom-3 inset-x-4 flex items-center justify-between">
+                <div className="absolute bottom-3 inset-x-3 sm:inset-x-4 flex items-center justify-between">
                   <span className="px-2.5 py-0.5 rounded-full bg-[#0a120c]/90 border border-[#00ff00]/50 font-display text-xs text-[#00ff00]">
                     {hudMode === 'stats' ? 'VIEWING: STATS' : 'VIEWING: STORY'}
                   </span>
                   <button
                     onClick={() => handleSwitchHudMode(hudMode === 'stats' ? 'story' : 'stats')}
-                    className="px-2.5 py-0.5 rounded-full bg-[#c0392b] text-[#f1efe6] hover:bg-[#00ff00] hover:text-[#050505] font-sans text-[10px] font-bold uppercase tracking-wider transition-colors"
+                    className="px-2.5 py-1 rounded-full bg-[#c0392b] text-[#f1efe6] hover:bg-[#00ff00] hover:text-[#050505] active:scale-95 font-sans text-[10px] font-bold uppercase tracking-wider transition-all"
                   >
                     SWITCH TO {hudMode === 'stats' ? 'STORY' : 'STATS'} &rarr;
                   </button>
@@ -548,16 +607,16 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
               </div>
             </div>
 
-            {/* RIGHT SIDE POP-UP: Dynamically Switches Between STATS View and STORY View (4 cols) */}
-            <div className="lg:col-span-4 flex flex-col justify-center space-y-5 z-20 animate-[fadeSlideLeft_0.45s_ease-out]">
+            {/* RIGHT SIDE POP-UP: Dynamically Switches Between STATS View and STORY View (Desktop Col 3 / Mobile Order 2) */}
+            <div className="order-2 lg:order-3 lg:col-span-4 flex flex-col justify-center space-y-4 sm:space-y-5 z-20 animate-[fadeSlideLeft_0.45s_ease-out]">
               {hudMode === 'stats' ? (
                 /* =============================================================
                    DEDICATED STATS TAB VIEW
                    ============================================================= */
                 <>
-                  <div className="rounded-2xl glass-dropdown-bar p-5 sm:p-6 space-y-4 relative overflow-hidden border-t-4 border-t-[#c0392b]">
+                  <div className="rounded-2xl glass-dropdown-bar p-4 sm:p-6 space-y-3.5 sm:space-y-4 relative overflow-hidden border-t-4 border-t-[#c0392b]">
                     <div className="flex items-center justify-between border-b border-[#f1efe6]/15 pb-2">
-                      <span className="font-display text-lg text-[#c0392b] tracking-wider flex items-center gap-2">
+                      <span className="font-display text-base sm:text-lg text-[#c0392b] tracking-wider flex items-center gap-2">
                         <BarChart3 className="w-4 h-4 text-[#00ff00]" />
                         <span>CHARACTER STATS // ATTRIBUTES</span>
                       </span>
@@ -566,29 +625,29 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
                       </span>
                     </div>
 
-                    {/* 3 Primary Gouache Stat Bars */}
-                    <div className="space-y-4">
+                    {/* 3 Primary Stat Bars */}
+                    <div className="space-y-3.5 sm:space-y-4">
                       {activeCharacter.stats.map((stat, sIdx) => {
-                        const isPinkBar = sIdx === 1;
+                        const isCrimsonBar = sIdx === 1;
                         return (
-                          <div key={stat.label} className="space-y-1.5">
+                          <div key={stat.label} className="space-y-1">
                             <div className="flex items-center justify-between">
-                              <span className="font-display text-lg sm:text-xl tracking-wide uppercase text-[#f1efe6]">
+                              <span className="font-display text-base sm:text-xl tracking-wide uppercase text-[#f1efe6]">
                                 {stat.label}
                               </span>
                               <span
-                                className={`font-display text-2xl tracking-wider ${
-                                  isPinkBar ? 'text-[#c0392b]' : 'text-[#00ff00]'
+                                className={`font-display text-xl sm:text-2xl tracking-wider ${
+                                  isCrimsonBar ? 'text-[#c0392b]' : 'text-[#00ff00]'
                                 }`}
                               >
                                 {stat.value}%
                               </span>
                             </div>
-                            <div className="w-full h-3.5 rounded-full bg-[#0a120c] border border-[#f1efe6]/25 p-0.5 overflow-hidden">
+                            <div className="w-full h-3 sm:h-3.5 rounded-full bg-[#0a120c] border border-[#f1efe6]/25 p-0.5 overflow-hidden">
                               <div
                                 style={{ width: `${stat.value}%` }}
                                 className={`h-full rounded-full transition-all duration-700 ${
-                                  isPinkBar
+                                  isCrimsonBar
                                     ? 'bg-[#c0392b] shadow-[0_0_12px_#c0392b]'
                                     : 'bg-[#00ff00] shadow-[0_0_12px_#00ff00]'
                                 }`}
@@ -599,16 +658,16 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
                       })}
 
                       {/* 4th Bonus Stat Bar: Alibi / Cover Strength */}
-                      <div className="space-y-1.5 pt-1">
+                      <div className="space-y-1 pt-1">
                         <div className="flex items-center justify-between">
-                          <span className="font-display text-lg sm:text-xl tracking-wide uppercase text-[#f1efe6]">
+                          <span className="font-display text-base sm:text-xl tracking-wide uppercase text-[#f1efe6]">
                             ALIBI / COVER STRENGTH
                           </span>
-                          <span className="font-display text-2xl tracking-wider text-[#c0392b]">
+                          <span className="font-display text-xl sm:text-2xl tracking-wider text-[#c0392b]">
                             {activeExtraStats.alibiStrength}%
                           </span>
                         </div>
-                        <div className="w-full h-3.5 rounded-full bg-[#0a120c] border border-[#f1efe6]/25 p-0.5 overflow-hidden">
+                        <div className="w-full h-3 sm:h-3.5 rounded-full bg-[#0a120c] border border-[#f1efe6]/25 p-0.5 overflow-hidden">
                           <div
                             style={{ width: `${activeExtraStats.alibiStrength}%` }}
                             className="h-full rounded-full transition-all duration-700 bg-gradient-to-r from-[#c0392b] to-[#00ff00]"
@@ -619,7 +678,7 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
                   </div>
 
                   {/* Psychological Profile Summary Box */}
-                  <div className="rounded-2xl glass-dropdown-bar p-5 space-y-2 border-l-4 border-l-[#00ff00]">
+                  <div className="rounded-2xl glass-dropdown-bar p-4 sm:p-5 space-y-2 border-l-4 border-l-[#00ff00]">
                     <span className="font-display text-sm tracking-wider text-[#00ff00] block">
                       PSYCHOLOGICAL ASSESSMENT
                     </span>
@@ -640,7 +699,7 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
                    ============================================================= */
                 <>
                   {/* `<main character intros>` Bio Card */}
-                  <div className="rounded-2xl glass-dropdown-bar p-5 sm:p-6 space-y-3 relative overflow-hidden border-t-4 border-t-[#00ff00]">
+                  <div className="rounded-2xl glass-dropdown-bar p-4 sm:p-6 space-y-3 relative overflow-hidden border-t-4 border-t-[#00ff00]">
                     <div className="flex items-center justify-between text-xs text-[#00ff00] border-b border-[#f1efe6]/15 pb-2">
                       <span className="font-display text-base flex items-center gap-1.5">
                         <Sparkles className="w-4 h-4 text-[#c0392b]" />
@@ -657,7 +716,7 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
                   </div>
 
                   {/* Key Novel Story Arc Beats */}
-                  <div className="rounded-2xl glass-dropdown-bar p-5 space-y-3 border-l-4 border-l-[#c0392b]">
+                  <div className="rounded-2xl glass-dropdown-bar p-4 sm:p-5 space-y-3 border-l-4 border-l-[#c0392b]">
                     <span className="font-display text-base tracking-wider text-[#c0392b] block">
                       KEY NOVEL MOMENTS // LAGOS ARC
                     </span>
@@ -678,22 +737,22 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
           </div>
 
           {/* Bottom Thumbnail Strip Carousel */}
-          <div className="relative z-20 max-w-4xl mx-auto w-full pt-4 flex items-center justify-center gap-3">
+          <div className="relative z-20 max-w-4xl mx-auto w-full pt-4 flex items-center justify-center gap-2 sm:gap-3">
             <button
               onClick={handlePrev}
-              className="p-2.5 rounded-lg bg-[#0a120c] border border-[#f1efe6]/25 text-[#f1efe6] hover:text-[#c0392b] hover:border-[#c0392b] transition-all"
+              className="p-2 sm:p-2.5 rounded-lg bg-[#0a120c] border border-[#f1efe6]/25 text-[#f1efe6] hover:text-[#c0392b] hover:border-[#c0392b] active:scale-95 transition-all"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
 
-            <div className="flex items-center gap-2.5 overflow-x-auto py-1 px-2">
+            <div className="flex items-center gap-2 sm:gap-2.5 overflow-x-auto py-1 px-2">
               {CHARACTER_SLOTS.map((item, idx) => {
                 const active = idx === selectedIndex;
                 return (
                   <button
                     key={item.id}
                     onClick={() => handleSelectCharacter(idx, hudMode)}
-                    className={`relative w-14 h-14 sm:w-16 sm:h-16 rounded-lg overflow-hidden border transition-all shrink-0 bg-[#050505] ${
+                    className={`relative w-12 h-12 sm:w-16 sm:h-16 rounded-lg overflow-hidden border transition-all shrink-0 bg-[#050505] ${
                       active
                         ? 'border-[#c0392b] scale-110 magenta-glow'
                         : 'border-[#f1efe6]/25 opacity-65 hover:opacity-100 hover:border-[#f1efe6]/55'
@@ -707,7 +766,7 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
                       }`}
                     />
                     <div className="pointer-events-none absolute inset-0 ring-2 ring-inset ring-[#050505]" />
-                    <div className="absolute inset-x-0 bottom-0 bg-black/85 font-sans font-bold text-[8px] text-center text-[#f1efe6] py-0.5 truncate">
+                    <div className="absolute inset-x-0 bottom-0 bg-black/85 font-sans font-bold text-[7px] sm:text-[8px] text-center text-[#f1efe6] py-0.5 truncate">
                       {item.name}
                     </div>
                   </button>
@@ -717,7 +776,7 @@ export const CharactersPage: React.FC<CharactersPageProps> = ({ onNavigate }) =>
 
             <button
               onClick={handleNext}
-              className="p-2.5 rounded-lg bg-[#0a120c] border border-[#f1efe6]/25 text-[#f1efe6] hover:text-[#c0392b] hover:border-[#c0392b] transition-all"
+              className="p-2 sm:p-2.5 rounded-lg bg-[#0a120c] border border-[#f1efe6]/25 text-[#f1efe6] hover:text-[#c0392b] hover:border-[#c0392b] active:scale-95 transition-all"
             >
               <ChevronRight className="w-5 h-5" />
             </button>

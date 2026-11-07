@@ -312,7 +312,7 @@ export const GuidePage: React.FC<GuidePageProps> = ({ onNavigate, onCrimsonShift
   return (
     <div
       style={{ backgroundColor: dynamicBg }}
-      className="min-h-screen w-full pt-24 pb-20 px-4 sm:px-8 transition-colors duration-300 relative"
+      className="min-h-screen w-full pt-16 sm:pt-24 pb-20 px-3.5 sm:px-8 transition-colors duration-300 relative"
     >
       {/* Dynamic Atmospheric Crime-Scene Vignette Overlay */}
       <div
@@ -383,7 +383,7 @@ export const GuidePage: React.FC<GuidePageProps> = ({ onNavigate, onCrimsonShift
               <Skull className="w-3.5 h-3.5" />
               <span>MODULE 01 // KOREDE’S 5-STEP CLEANUP MANUAL</span>
             </div>
-            <h2 className="font-display text-6xl sm:text-7xl md:text-8xl uppercase tracking-wide text-[#f1efe6] leading-[0.9]">
+            <h2 className="font-display text-4xl sm:text-6xl md:text-8xl uppercase tracking-wide text-[#f1efe6] leading-[0.92]">
               THE <span className="text-[#00ff00] neon-text-glow">CRIME-SCENE</span> GUIDE
             </h2>
             <p className="font-editorial italic text-xl sm:text-2xl text-[#c0392b]">
@@ -437,8 +437,8 @@ export const GuidePage: React.FC<GuidePageProps> = ({ onNavigate, onCrimsonShift
             </div>
           </div>
 
-          {/* Interactive 5-Act Scrubber Tabs */}
-          <div className="grid grid-cols-2 sm:grid-cols-5 bg-[#041209] border-b border-[#f1efe6]/15">
+          {/* Interactive 5-Act Scrubber Tabs (Horizontal Touch Strip on Mobile, 5-Col Grid on Desktop) */}
+          <div className="flex overflow-x-auto sm:grid sm:grid-cols-5 bg-[#041209] border-b border-[#f1efe6]/15">
             {PHASE_ORDER.map((phaseKey, idx) => {
               const active = scenePhase === phaseKey;
               const meta = PHASE_META[phaseKey];
@@ -446,7 +446,7 @@ export const GuidePage: React.FC<GuidePageProps> = ({ onNavigate, onCrimsonShift
                 <button
                   key={phaseKey}
                   onClick={() => handleJumpToStep(idx)}
-                  className={`px-3 py-2.5 font-mono text-[11px] text-left transition-all border-r border-b sm:border-b-0 border-[#f1efe6]/10 flex items-center justify-between gap-1.5 ${
+                  className={`shrink-0 min-w-[140px] sm:min-w-0 px-3 py-2.5 font-mono text-[11px] text-left transition-all border-r border-[#f1efe6]/10 flex items-center justify-between gap-1.5 ${
                     active
                       ? 'bg-[#c0392b] text-[#f1efe6] font-bold shadow-inner'
                       : 'text-[#f1efe6]/70 hover:bg-[#083018] hover:text-[#00ff00]'
@@ -464,7 +464,7 @@ export const GuidePage: React.FC<GuidePageProps> = ({ onNavigate, onCrimsonShift
           </div>
 
           {/* Animated SVG 5-Act Shadow Silhouette Viewport */}
-          <div className="relative h-80 sm:h-[400px] w-full flex items-center justify-center overflow-hidden bg-[radial-gradient(circle_at_center,#0d3d20_0%,#050505_78%)]">
+          <div className="relative h-56 sm:h-80 md:h-[400px] w-full flex items-center justify-center overflow-hidden bg-[radial-gradient(circle_at_center,#0d3d20_0%,#050505_78%)]">
             {/* Dynamic Phase Lighting Backdrop */}
             <div
               className={`absolute inset-0 transition-all duration-700 pointer-events-none ${
@@ -767,11 +767,13 @@ export const GuidePage: React.FC<GuidePageProps> = ({ onNavigate, onCrimsonShift
           </div>
 
           {/* Synced Typewriter Caption & Playback Controls Bar */}
-          <div className="px-5 sm:px-6 py-4 bg-[#050505] border-t border-[#f1efe6]/20 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
-            <div className="font-mono text-sm sm:text-base text-[#00ff00] min-h-[28px] flex items-center">
-              <span className="text-[#c0392b] mr-2 font-bold">&gt;</span>
-              <span>{typedText}</span>
-              <span className="inline-block w-2.5 h-4 bg-[#c0392b] ml-1 cursor-blink" />
+          <div className="px-4 sm:px-6 py-4 bg-[#050505] border-t border-[#f1efe6]/20 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+            <div className="font-mono text-xs sm:text-base text-[#00ff00] min-h-[60px] sm:min-h-[28px] flex items-center leading-relaxed">
+              <span className="text-[#c0392b] mr-2 font-bold shrink-0">&gt;</span>
+              <span>
+                {typedText}
+                <span className="inline-block w-2.5 h-4 bg-[#c0392b] ml-1 align-middle cursor-blink" />
+              </span>
             </div>
 
             <div className="flex items-center gap-3 shrink-0 w-full lg:w-auto">
@@ -819,7 +821,7 @@ export const GuidePage: React.FC<GuidePageProps> = ({ onNavigate, onCrimsonShift
           </div>
 
           {/* 5 Interactive Prop Buttons */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-3.5">
             {GUIDE_STEP_SLOTS.map((step, idx) => {
               const isSelected = selectedPropIndex === idx;
               const detail = STEP_FORENSIC_DETAILS[idx];
@@ -827,7 +829,9 @@ export const GuidePage: React.FC<GuidePageProps> = ({ onNavigate, onCrimsonShift
                 <button
                   key={step.stepNumber}
                   onClick={() => handleJumpToStep(idx)}
-                  className={`group text-left p-3.5 rounded-xl border transition-all duration-300 flex flex-col items-center text-center gap-2 ${
+                  className={`group text-left p-3 sm:p-3.5 rounded-xl border transition-all duration-300 flex flex-col items-center text-center gap-2 ${
+                    idx === 4 ? 'col-span-2 sm:col-span-1' : ''
+                  } ${
                     isSelected
                       ? 'bg-[#083d1e]/90 border-[#c0392b] magenta-glow -translate-y-1'
                       : 'bg-[#050505]/60 border-[#f1efe6]/20 hover:border-[#00ff00]'
@@ -911,7 +915,7 @@ export const GuidePage: React.FC<GuidePageProps> = ({ onNavigate, onCrimsonShift
                     stepCardRefs.current[index] = el;
                   }}
                   onClick={() => handleJumpToStep(index)}
-                  className={`cursor-pointer rounded-2xl transition-all duration-500 p-6 sm:p-8 glass-dropdown-bar relative overflow-hidden ${
+                  className={`cursor-pointer rounded-2xl transition-all duration-500 p-4 sm:p-8 glass-dropdown-bar relative overflow-hidden ${
                     isCurrentStep
                       ? 'border-[#c0392b] magenta-glow scale-[1.01]'
                       : 'hover:border-[#00ff00] neon-glow'

@@ -17,7 +17,7 @@ interface AboutAuthorPageProps {
 
 export const AboutAuthorPage: React.FC<AboutAuthorPageProps> = ({ onNavigate }) => {
   return (
-    <div className="min-h-screen w-full pt-24 pb-16 px-4 sm:px-8 relative">
+    <div className="min-h-screen w-full pt-16 sm:pt-24 pb-16 px-3.5 sm:px-8 relative">
       {/* Floating Decorative Murder Props */}
       <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
         <div className="hidden md:block absolute right-8 top-32 opacity-80 animate-float-slow">
@@ -106,7 +106,7 @@ export const AboutAuthorPage: React.FC<AboutAuthorPageProps> = ({ onNavigate }) 
                   <BookOpen className="w-3.5 h-3.5" />
                   <span>ABOUT THE AUTHOR &amp; NOVEL CONTEXT</span>
                 </div>
-                <h2 className="font-display text-6xl sm:text-7xl md:text-8xl uppercase tracking-wide text-[#00ff00] leading-none neon-text-glow">
+                <h2 className="font-display text-4xl sm:text-6xl md:text-8xl uppercase tracking-wide text-[#00ff00] leading-none neon-text-glow">
                   {AUTHOR_SLOT.authorName}
                 </h2>
               </div>

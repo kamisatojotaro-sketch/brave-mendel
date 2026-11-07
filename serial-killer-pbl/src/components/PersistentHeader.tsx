@@ -32,20 +32,20 @@ export const PersistentHeader: React.FC<PersistentHeaderProps> = ({
         return {
           top: '106vh',
           left: '50%',
-          transform: 'translate(-50%, 0) scale(1.06)',
+          transform: 'translate(-50%, 0) scale(1.04)',
           opacity: 0,
         };
       case 'docking':
         return {
-          top: '46vh',
+          top: '44vh',
           left: '50%',
           transform: 'translate(-50%, -50%) scale(1)',
           opacity: 1,
         };
       case 'docked':
         return {
-          top: '14px',
-          left: '24px',
+          top: '12px',
+          left: '14px',
           transform: 'translate(0, 0) scale(1)',
           opacity: 1,
         };
@@ -59,15 +59,15 @@ export const PersistentHeader: React.FC<PersistentHeaderProps> = ({
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-700 ${
           isDocked
             ? isCrimsonMode
-              ? 'bg-[#2a060e]/85 backdrop-blur-xl border-b border-[#c0392b]/35 py-3 shadow-lg'
-              : 'bg-[#0a120c]/80 backdrop-blur-xl border-b border-[#f1efe6]/20 py-3 shadow-lg'
-            : 'bg-transparent border-transparent py-4 pointer-events-none'
+              ? 'bg-[#2a060e]/90 backdrop-blur-xl border-b border-[#c0392b]/35 py-2.5 sm:py-3 shadow-lg'
+              : 'bg-[#0a120c]/90 backdrop-blur-xl border-b border-[#f1efe6]/20 py-2.5 sm:py-3 shadow-lg'
+            : 'bg-transparent border-transparent py-3 pointer-events-none'
         }`}
       >
-        <div className="w-full px-6 flex items-center justify-end gap-3 h-11">
+        <div className="w-full px-3 sm:px-6 flex items-center justify-end gap-2 sm:gap-3 h-10 sm:h-11">
           {/* Top-Bar Interactive Vinyl Disc Easter Egg & Controls */}
           <div
-            className={`flex items-center gap-3 transition-all duration-700 ${
+            className={`flex items-center gap-1.5 sm:gap-3 transition-all duration-700 ${
               isDocked ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-3 pointer-events-none'
             }`}
           >
@@ -76,7 +76,8 @@ export const PersistentHeader: React.FC<PersistentHeaderProps> = ({
             <button
               onClick={onReplayIntro}
               title="Replay title intro animation"
-              className="p-2 rounded-full border border-[#f1efe6]/25 bg-[#050505]/60 text-[#f1efe6]/80 hover:text-[#00ff00] hover:border-[#00ff00] transition-colors"
+              aria-label="Replay intro"
+              className="p-2 rounded-full border border-[#f1efe6]/25 bg-[#050505]/70 text-[#f1efe6]/80 hover:text-[#00ff00] hover:border-[#00ff00] active:scale-95 transition-all"
             >
               <RotateCcw className="w-3.5 h-3.5" />
             </button>
@@ -84,10 +85,11 @@ export const PersistentHeader: React.FC<PersistentHeaderProps> = ({
             <button
               onClick={onToggleMute}
               title={isMuted ? 'Unmute UI sound FX' : 'Mute UI sound FX'}
-              className={`p-2 rounded-full border transition-colors ${
+              aria-label={isMuted ? 'Unmute sound' : 'Mute sound'}
+              className={`p-2 rounded-full border active:scale-95 transition-all ${
                 !isMuted
                   ? 'border-[#00ff00] bg-[#00ff00]/15 text-[#00ff00]'
-                  : 'border-[#f1efe6]/25 bg-[#050505]/60 text-[#f1efe6]/75 hover:text-[#c0392b] hover:border-[#c0392b]'
+                  : 'border-[#f1efe6]/25 bg-[#050505]/70 text-[#f1efe6]/75 hover:text-[#c0392b] hover:border-[#c0392b]'
               }`}
             >
               {isMuted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
@@ -106,13 +108,15 @@ export const PersistentHeader: React.FC<PersistentHeaderProps> = ({
           }
         }}
         className={`fixed z-50 transition-all duration-[1150ms] ease-[cubic-bezier(0.22,1,0.36,1)] select-none ${
-          isDocked ? 'cursor-pointer group' : 'pointer-events-none w-full px-4 text-center'
+          isDocked
+            ? 'cursor-pointer group max-w-[56vw] sm:max-w-none sm:left-6'
+            : 'pointer-events-none w-full px-4 text-center'
         }`}
       >
-        <div className={`flex items-center gap-3 ${isDocked ? '' : 'justify-center'}`}>
+        <div className={`flex items-center gap-2 sm:gap-3 ${isDocked ? '' : 'justify-center'}`}>
           {isDocked && (
             <span
-              className={`w-2.5 h-2.5 rounded-full transition-colors ${
+              className={`w-2 h-2 sm:w-2.5 sm:h-2.5 shrink-0 rounded-full transition-colors ${
                 isCrimsonMode
                   ? 'bg-[#c0392b] shadow-[0_0_10px_#c0392b]'
                   : 'bg-[#00ff00] shadow-[0_0_10px_#00ff00]'
@@ -122,8 +126,8 @@ export const PersistentHeader: React.FC<PersistentHeaderProps> = ({
           <h1
             className={`font-display uppercase tracking-wider transition-all duration-[1150ms] ${
               isDocked
-                ? 'text-2xl sm:text-3xl text-[#f1efe6] group-hover:text-[#00ff00]'
-                : 'text-[clamp(2rem,5.8vw,6.2rem)] leading-none text-[#00ff00] neon-text-glow'
+                ? 'text-base sm:text-2xl md:text-3xl leading-tight truncate text-[#f1efe6] group-hover:text-[#00ff00]'
+                : 'text-[clamp(2rem,7vw,6.2rem)] leading-[0.95] text-[#00ff00] neon-text-glow'
             }`}
           >
             How to get away{' '}
@@ -141,7 +145,7 @@ export const PersistentHeader: React.FC<PersistentHeaderProps> = ({
           </h1>
         </div>
         {!isDocked && (
-          <p className="mt-4 font-editorial italic text-xl sm:text-2xl text-[#f1efe6] text-center animate-pulse">
+          <p className="mt-3 sm:mt-4 font-editorial italic text-base sm:text-2xl text-[#f1efe6] text-center animate-pulse px-2">
             “Bleach masks the smell of blood better than anything else...”
           </p>
         )}

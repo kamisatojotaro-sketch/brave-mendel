@@ -10,9 +10,7 @@ interface FloatingNote {
 
 const NOTE_SYMBOLS = ['♪', '♫', '♬', '♩'];
 
-// Pointed directly to the user's uploaded MP3 in public/assets/i-wanna-dance.mp3
 const SONG_AUDIO_SRC = '/assets/i-wanna-dance.mp3';
-// Starts playback from the 0:30 mark
 const SONG_START_SECONDS = 30;
 
 export const VinylEasterEgg: React.FC = () => {
@@ -30,7 +28,7 @@ export const VinylEasterEgg: React.FC = () => {
     const id = noteIdCounter.current;
     const symbol = NOTE_SYMBOLS[id % NOTE_SYMBOLS.length];
     const angle = (Math.random() * 130 - 65) * (Math.PI / 180);
-    const dist = 28 + Math.random() * 20;
+    const dist = 26 + Math.random() * 18;
     const tx = `${Math.round(Math.sin(angle) * dist)}px`;
     const ty = `${Math.round(-Math.cos(angle) * dist - 10)}px`;
     const color = id % 2 === 0 ? '#00ff00' : '#c0392b';
@@ -123,46 +121,35 @@ export const VinylEasterEgg: React.FC = () => {
                 color: n.color,
               } as React.CSSProperties
             }
-            className="animate-music-note absolute left-1/2 top-1/2 font-mono text-sm font-bold drop-shadow-[0_0_8px_rgba(0, 255, 0,0.8)] select-none"
+            className="animate-music-note absolute left-1/2 top-1/2 font-mono text-sm font-bold drop-shadow-[0_0_8px_rgba(0,255,0,0.8)] select-none"
           >
             {n.symbol}
           </span>
         ))}
       </div>
 
-      {/* Interactive Vinyl Disc Button */}
+      {/* Interactive Vinyl Disc Button (Touch-friendly sizing on mobile & desktop) */}
       <button
         onClick={handleToggleVinyl}
         aria-label="Spin vinyl record"
-        className={`relative w-11 h-11 rounded-full flex items-center justify-center transition-transform duration-300 hover:scale-110 focus:outline-none ${
+        className={`relative w-9 h-9 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-transform duration-300 hover:scale-110 active:scale-95 focus:outline-none ${
           isPlaying
-            ? 'shadow-[0_0_20px_rgba(192, 57, 43,0.65)]'
-            : 'shadow-[0_4px_14px_rgba(0,0,0,0.85)] hover:shadow-[0_0_16px_rgba(0, 255, 0,0.45)]'
+            ? 'shadow-[0_0_20px_rgba(192,57,43,0.65)]'
+            : 'shadow-[0_4px_14px_rgba(0,0,0,0.85)] hover:shadow-[0_0_16px_rgba(0,255,0,0.45)]'
         }`}
       >
         <svg
           viewBox="0 0 100 100"
           className={`w-full h-full rounded-full ${isPlaying ? 'animate-vinyl-spin' : ''}`}
         >
-          {/* Outer Dark Vinyl Base */}
           <circle cx="50" cy="50" r="48" fill="#050505" stroke="#f1efe6" strokeOpacity="0.4" strokeWidth="2" />
-
-          {/* Concentric Vinyl Grooves */}
           <circle cx="50" cy="50" r="41" fill="none" stroke="#1d3526" strokeWidth="1" strokeDasharray="18 6" />
           <circle cx="50" cy="50" r="35" fill="none" stroke="#258e47" strokeOpacity="0.55" strokeWidth="1" strokeDasharray="12 8" />
           <circle cx="50" cy="50" r="29" fill="none" stroke="#1d3526" strokeWidth="1" strokeDasharray="20 5" />
 
-          {/* Diagonal Specular Vinyl Sheen */}
-          <path
-            d="M 18 26 A 42 42 0 0 1 36 12 L 50 50 Z"
-            fill="rgba(243, 239, 228, 0.09)"
-          />
-          <path
-            d="M 82 74 A 42 42 0 0 1 64 88 L 50 50 Z"
-            fill="rgba(243, 239, 228, 0.09)"
-          />
+          <path d="M 18 26 A 42 42 0 0 1 36 12 L 50 50 Z" fill="rgba(241, 239, 230, 0.09)" />
+          <path d="M 82 74 A 42 42 0 0 1 64 88 L 50 50 Z" fill="rgba(241, 239, 230, 0.09)" />
 
-          {/* Center Record Label (Hot Pink when spinning, Neon Green when idle) */}
           <circle
             cx="50"
             cy="50"
@@ -171,31 +158,21 @@ export const VinylEasterEgg: React.FC = () => {
             stroke="#050505"
             strokeWidth="2"
           />
-          <circle
-            cx="50"
-            cy="50"
-            r="12"
-            fill="none"
-            stroke="#050505"
-            strokeWidth="1"
-            strokeDasharray="6 4"
-          />
-
-          {/* Center Spindle Hole */}
+          <circle cx="50" cy="50" r="12" fill="none" stroke="#050505" strokeWidth="1" strokeDasharray="6 4" />
           <circle cx="50" cy="50" r="4" fill="#050505" stroke="#f1efe6" strokeWidth="1" />
         </svg>
       </button>
 
-      {/* Song Name Popup — Anchored right-0 so it never clips off the screen, fades off after 2 seconds */}
+      {/* Song Name Popup — Responsive width so it never overflows mobile screens */}
       <div
-        className={`pointer-events-none absolute top-13 right-0 mt-2 z-50 whitespace-nowrap rounded-xl border border-[#c0392b]/60 bg-[#0a120c]/95 px-3.5 py-2 backdrop-blur-xl shadow-[0_12px_28px_rgba(0,0,0,0.85)] transition-all duration-300 ${
+        className={`pointer-events-none absolute top-11 sm:top-13 right-0 mt-2 z-50 max-w-[calc(100vw-24px)] sm:whitespace-nowrap rounded-xl border border-[#c0392b]/60 bg-[#0a120c]/95 px-3 py-2 backdrop-blur-xl shadow-[0_12px_28px_rgba(0,0,0,0.85)] transition-all duration-300 ${
           showSongBadge
             ? 'opacity-100 translate-y-0 scale-100'
             : 'opacity-0 -translate-y-2 scale-95'
         }`}
       >
-        <div className="flex items-center gap-2 font-mono text-[11px]">
-          <span className="inline-block w-2 h-2 rounded-full bg-[#c0392b] animate-ping" />
+        <div className="flex flex-wrap sm:flex-nowrap items-center gap-1.5 sm:gap-2 font-mono text-[10px] sm:text-[11px]">
+          <span className="inline-block w-2 h-2 shrink-0 rounded-full bg-[#c0392b] animate-ping" />
           <span className="text-[#00ff00] font-bold">Whitney Houston</span>
           <span className="text-[#f1efe6]/50">—</span>
           <span className="text-[#f1efe6] italic">I Wanna Dance with Somebody</span>
